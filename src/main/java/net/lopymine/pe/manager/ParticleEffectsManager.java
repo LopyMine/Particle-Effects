@@ -87,7 +87,7 @@ public class ParticleEffectsManager {
 			List<StatusEffectInstance> effects = potion.getEffects();
 
 			//? =1.20.1 {
-			/*int color = ArgbUtils.getColorWithoutAlpha(net.minecraft.potion.PotionUtil.getColor(effects));
+			/*int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
 
 			List<ParticleEffect> particleEffects = effects.stream()
 					.map(StatusEffectInstance::getEffectType)
