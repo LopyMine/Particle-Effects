@@ -1,2 +1,3 @@
-- Fixed some mod compatibility
-- Updated to 1.21.5
+- Ported to 1.21.6
+- Fixed supported sides, mod no longer runs on the server side
+- Fixed applying particles to other things like particles from slime jump

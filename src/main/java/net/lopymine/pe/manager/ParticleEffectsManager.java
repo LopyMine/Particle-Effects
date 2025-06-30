@@ -2,6 +2,8 @@ package net.lopymine.pe.manager;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import java.util.function.*;
+import net.lopymine.pe.capture.ParticleCaptures;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.entity.effect.*;
@@ -201,24 +203,28 @@ public class ParticleEffectsManager {
 		localParticleEffects.set(list);
 	}
 
-	public static Particle processSplashPotionStageTwo(@Nullable World world, WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, LocalRef<List<ParticleEffect>> localParticleEffects, int color) {
+	public static Particle processSplashPotionStageTwo(@Nullable World world, ParticleEffect original, Function<ParticleEffect, Particle> function, LocalRef<List<ParticleEffect>> localParticleEffects, int color) {
 		if (!ParticleEffects.getConfig().isModEnabled()) {
-			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+			return function.apply(original);
 		}
 
 		List<ParticleEffect> list = localParticleEffects.get();
 		if (list == null || world == null) {
-			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+			return function.apply(original);
 		}
 		ParticleEffect particleEffect = ListUtils.getRandomElement(list, world.getRandom());
 		if (particleEffect == null) {
-			return original.call(instance, parameters, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+			return function.apply(original);
 		}
 		//? =1.20.1 {
 		/*((PEType) particleEffect).particleEffects$setColor(-1);
 		 *///?} else {
 		((PEType) particleEffect).particleEffects$setColor(color);
 		//?}
-		return original.call(instance, particleEffect, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ);
+
+		ParticleCaptures.setParticle(particleEffect);
+		Particle apply = function.apply(particleEffect);
+		ParticleCaptures.setParticle(null);
+		return apply;
 	}
 }
