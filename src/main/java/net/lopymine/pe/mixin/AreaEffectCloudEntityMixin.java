@@ -31,7 +31,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 	}
 
 	// LINGERING POTION
-	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/AreaEffectCloudEntity;getParticleType()Lnet/minecraft/particle/ParticleEffect;"), method = /*? if >=1.21.2 {*//* "clientTick" *//*?} else {*/ "tick" /*?}*/)
+	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/AreaEffectCloudEntity;getParticleType()Lnet/minecraft/particle/ParticleEffect;"), method = /*? if >=1.21.2 {*/ "clientTick" /*?} else {*/ /*"tick" *//*?}*/)
 	private ParticleEffect swapParticleType(AreaEffectCloudEntity instance, Operation<ParticleEffect> original) {
 		ParticleEffect originalParticle = original.call(instance);
 
@@ -70,7 +70,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 		return particleEffect;
 	}
 
-	@Inject(at = @At("TAIL"), method = /*? if >=1.21.2 {*//* "clientTick" *//*?} else {*/ "tick" /*?}*/)
+	@Inject(at = @At("TAIL"), method = /*? if >=1.21.2 {*/ "clientTick" /*?} else {*/ /*"tick" *//*?}*/)
 	private void resetParticle(CallbackInfo ci) {
 		if (this.needReset) {
 			this.needReset = false;

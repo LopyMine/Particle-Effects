@@ -35,7 +35,7 @@ public class WorldRendererMixin {
 	private ClientWorld world;
 
 	//? <=1.21.1 {
-	// SPLASH POTION
+	/*// SPLASH POTION
 	@Inject(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;ofBottomCenter(Lnet/minecraft/util/math/Vec3i;)Lnet/minecraft/util/math/Vec3d;"))
 	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects) {
 		ParticleEffectsManager.processSplashPotionStageOne(localParticleEffects, data);
@@ -51,7 +51,7 @@ public class WorldRendererMixin {
 				localParticleEffects,
 				color);
 	}
-	//?}
+	*///?}
 
 	// ENTITY PARTICLES
 	@WrapOperation(method = "addParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;"))

@@ -2,7 +2,7 @@ package net.lopymine.pe.mixin;
 
 //? >=1.21.2 {
 
-/*import com.llamalad7.mixinextras.injector.wrapoperation.*;
+import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import com.llamalad7.mixinextras.sugar.*;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.client.particle.Particle;
@@ -42,4 +42,4 @@ public class WorldEventHandlerMixin {
 	}
 }
 
-*///?}
+//?}
