@@ -1,24 +1,21 @@
 package net.lopymine.mossy;
 
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension;
-import lombok.Getter;
-import me.modmuss50.mpp.ModPublishExtension;
-import org.gradle.api.*;
-import org.gradle.api.plugins.*;
-import org.gradle.api.tasks.*;
-import org.gradle.jvm.tasks.Jar;
-
-import net.fabricmc.loom.api.LoomGradleExtensionAPI;
-import net.fabricmc.loom.task.RemapJarTask;
-
-import net.lopymine.mossy.manager.*;
-import net.lopymine.mossy.multi.MultiVersion;
-import net.lopymine.mossy.tasks.*;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.Map.Entry;
+import lombok.Getter;
+import me.modmuss50.mpp.ModPublishExtension;
+import net.fabricmc.loom.api.LoomGradleExtensionAPI;
+import net.fabricmc.loom.task.RemapJarTask;
+import net.lopymine.mossy.manager.*;
+import net.lopymine.mossy.multi.MultiVersion;
+import net.lopymine.mossy.tasks.*;
+import org.gradle.api.*;
+import org.gradle.api.plugins.*;
+import org.gradle.api.tasks.*;
+import org.gradle.jvm.tasks.Jar;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
@@ -113,6 +110,18 @@ public class MossyPlugin implements Plugin<Project> {
 			task.from(((RemapJarTask) project.getTasks().getByName("remapJar")).getArchiveFile().get());
 			task.into(getRootFile(project, "libs/"));
 		});
+		for (String publishTask : List.of("publishModrinth", "publishCurseforge")) {
+			project.getTasks().named(publishTask).configure((task) -> {
+				task.doLast((t) -> {
+					try {
+						Thread.sleep(1000L);
+					} catch (Exception e) {
+						MossyPlugin.LOGGER.log("Failed to wait before publishing!");
+						e.printStackTrace();
+					}
+				});
+			});
+		}
 	}
 
 	private static void configureProject(@NotNull Project project, MossyPlugin plugin) {

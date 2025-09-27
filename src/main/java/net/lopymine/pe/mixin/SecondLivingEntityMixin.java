@@ -2,7 +2,7 @@ package net.lopymine.pe.mixin;
 
 //? if !1.20.1 {
 
-import com.llamalad7.mixinextras.injector.wrapoperation.*;
+/*import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import net.lopymine.pe.capture.ParticleCaptures;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleEffect;
@@ -13,13 +13,12 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(LivingEntity.class)
 public class SecondLivingEntityMixin {
 
-	@WrapOperation(at = @At(value = "INVOKE", target =
-			/*? if >=1.21.5 {*/ "Lnet/minecraft/world/World;addParticleClient(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V" /*?} else {*/
-			/*"Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V" *//*?}*/), method = "tickStatusEffects")
+	@WrapOperation(at = @At(value = "INVOKE", target = /^? if >=1.21.5 {^/ /^"Lnet/minecraft/world/World;addParticleClient(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V" ^//^?} else {^/
+			"Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V" /^?}^/), method = "tickStatusEffects")
 	private void markParticle(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original) {
 		ParticleCaptures.setParticle(parameters);
 		original.call(instance, parameters, x, y, z, velocityX, velocityY, velocityZ);
 		ParticleCaptures.setParticle(null);
 	}
 }
-//?}
+*///?}

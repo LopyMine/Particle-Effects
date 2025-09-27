@@ -4,7 +4,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.*;
 
 import com.llamalad7.mixinextras.sugar.*;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import java.util.function.Supplier;
 import net.lopymine.pe.capture.ParticleCaptures;
+import net.lopymine.pe.client.ParticleEffectsClient;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
@@ -20,11 +22,11 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 //? >=1.21
-import net.minecraft.entity.effect.StatusEffect;
+/*import net.minecraft.entity.effect.StatusEffect;*/
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //? =1.20.1
-/*import net.minecraft.util.math.ColorHelper.Argb;*/
+import net.minecraft.util.math.ColorHelper.Argb;
 
 @Debug(export = true)
 @Mixin(WorldRenderer.class)
@@ -35,7 +37,7 @@ public class WorldRendererMixin {
 	private ClientWorld world;
 
 	//? <=1.21.1 {
-	/*// SPLASH POTION
+	// SPLASH POTION
 	@Inject(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;ofBottomCenter(Lnet/minecraft/util/math/Vec3i;)Lnet/minecraft/util/math/Vec3d;"))
 	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects) {
 		ParticleEffectsManager.processSplashPotionStageOne(localParticleEffects, data);
@@ -51,26 +53,33 @@ public class WorldRendererMixin {
 				localParticleEffects,
 				color);
 	}
-	*///?}
+	//?}
 
 	// ENTITY PARTICLES
 	@WrapOperation(method = "addParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;"))
 	private Particle swapParticle(WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original) {
-		if (!ParticleEffects.getConfig().isModEnabled() || ParticleCaptures.getParticle() != parameters) {
-			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+		Supplier<Particle> originalCall = () -> original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+
+		if (!ParticleEffects.getConfig().isModEnabled()) {
+			return this.markDebugData(10, originalCall);
 		}
+
+		if (ParticleCaptures.getParticle() != parameters) {
+			return this.markDebugData(11, originalCall);
+		}
+
 		//? =1.20.1 {
-		/*boolean bl = parameters.equals(ParticleTypes.ENTITY_EFFECT);
+		boolean bl = parameters.equals(ParticleTypes.ENTITY_EFFECT);
 		boolean bl2 = parameters.equals(ParticleTypes.AMBIENT_ENTITY_EFFECT);
 		if (!bl && !bl2) {
-			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+			return this.markDebugData(12, originalCall);
 		}
 
 		int color = Argb.getArgb(bl2 ? 38 : 255, (int) (velocityX * 255), (int) (velocityY * 255), (int) (velocityZ * 255));
-		*///?} else {
-		int color;
+		//?} else {
+		/*int color;
 
-		if (parameters instanceof EntityEffectParticleEffect effect) { // RECEIVES IN SINGLEPLAYER AND IN MULTIPLAYER
+		if (parameters instanceof /^? if >=1.21.8 {^/ /^TintedParticleEffect ^//^?} else {^/ EntityEffectParticleEffect /^?}^/ effect) { // RECEIVES IN SINGLEPLAYER AND IN MULTIPLAYER
 			color = effect.color;
 		} else {
 			StatusEffect statusEffect = ParticleEffectsManager.getVanillaStatusEffectByStatusEffect(parameters);
@@ -78,21 +87,41 @@ public class WorldRendererMixin {
 		}
 
 		if (color == 0) {
-			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+			return this.markDebugData(13, originalCall);
 		}
-		//?}
+		*///?}
 
 		List<ParticleEffect> list = ParticleEffectsManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
-		if (list == null || this.world == null) {
-			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+		if (list == null) {
+			return this.markDebugData(14, originalCall);
+		}
+		if (list.isEmpty()) {
+			return this.markDebugData(15, originalCall);
+		}
+		if (this.world == null) {
+			return this.markDebugData(16, originalCall);
 		}
 
 		ParticleEffect particleEffect = ListUtils.getRandomElement(list, this.world.getRandom());
 		if (particleEffect == null) {
-			return original.call(instance, parameters, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+			return this.markDebugData(17, originalCall);
 		}
 
 		((PEType) particleEffect).particleEffects$setColor(color);
+
 		return original.call(instance, particleEffect, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+	}
+
+	@Unique
+	private Particle markDebugData(int data, Supplier<Particle> supplier) {
+		boolean bl = ParticleCaptures.getDebugData() == null;
+		if (bl) {
+			ParticleCaptures.setDebugData(data);
+		}
+		Particle particle = supplier.get();
+		if (bl) {
+			ParticleCaptures.setDebugData(null);
+		}
+		return particle;
 	}
 }

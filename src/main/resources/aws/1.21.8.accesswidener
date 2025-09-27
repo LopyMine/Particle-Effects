@@ -1,16 +1,20 @@
 accessWidener v2 named
-# 1.20.1 AW
+# 1.21.8 AW
 
+accessible field net/minecraft/entity/effect/StatusEffect particleFactory Ljava/util/function/Function;
+mutable field net/minecraft/entity/effect/StatusEffect particleFactory Ljava/util/function/Function;
 accessible field net/minecraft/potion/Potion baseName Ljava/lang/String;
 accessible method net/minecraft/client/particle/SpellParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/client/particle/SpriteProvider;)V
+accessible field net/minecraft/particle/TintedParticleEffect color I
+accessible class net/minecraft/entity/effect/SaturationStatusEffect
 
 accessible field net/minecraft/client/particle/Particle x D
 accessible field net/minecraft/client/particle/Particle y D
 accessible field net/minecraft/client/particle/Particle z D
 
-accessible field net/minecraft/client/particle/Particle prevPosX D
-accessible field net/minecraft/client/particle/Particle prevPosY D
-accessible field net/minecraft/client/particle/Particle prevPosZ D
+accessible field net/minecraft/client/particle/Particle lastX D
+accessible field net/minecraft/client/particle/Particle lastY D
+accessible field net/minecraft/client/particle/Particle lastZ D
 
 accessible field net/minecraft/client/particle/Particle alpha F
 accessible field net/minecraft/client/particle/Particle red F

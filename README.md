@@ -10,3 +10,9 @@ Particle Effects is a simple visual client-side Fabric mod that adds unique text
 Here you can see all unique particles for each effect:
 
 <img src="https://cdn.modrinth.com/data/cached_images/5cdc6c81fab76bc0e8b4892579da994787cde48e.jpeg" width="800px" alt="Effects"/>
+
+## 🌟 Resource Packs
+There are also some resource packs that slightly change the appearance of the particles from the original mod.
+
+1) [Particles Updated by zed1ker](https://modrinth.com/resourcepack/particles-updated)
+2) [Updated Particles by Timofeii7547](https://modrinth.com/resourcepack/particle-effects-updated-particles)

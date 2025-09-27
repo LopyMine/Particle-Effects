@@ -24,9 +24,10 @@ import java.util.stream.*;
 import net.minecraft.world.World;
 
 //? >=1.21
-import net.minecraft.registry.entry.RegistryEntry;
+/*import net.minecraft.registry.entry.RegistryEntry;*/
 
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Unique;
 
 public class ParticleEffectsManager {
 
@@ -89,7 +90,7 @@ public class ParticleEffectsManager {
 			List<StatusEffectInstance> effects = potion.getEffects();
 
 			//? =1.20.1 {
-			/*int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
+			int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
 
 			List<ParticleEffect> particleEffects = effects.stream()
 					.map(StatusEffectInstance::getEffectType)
@@ -103,8 +104,8 @@ public class ParticleEffectsManager {
 					})
 					.toList();
 
-			*///?} else {
-			OptionalInt optional = net.minecraft.component.type.PotionContentsComponent.mixColors(effects);
+			//?} else {
+			/*OptionalInt optional = net.minecraft.component.type.PotionContentsComponent.mixColors(effects);
 			if (optional.isEmpty()) {
 				continue;
 			}
@@ -123,7 +124,7 @@ public class ParticleEffectsManager {
 						return Stream.of(particleEffect);
 					})
 					.toList();
-			//?}
+			*///?}
 
 			COLOR_TO_PARTICLES_MAP.put(color, particleEffects);
 		}
@@ -146,14 +147,14 @@ public class ParticleEffectsManager {
 			// WHEN WE REGISTERED NEW PARTICLE TYPE
 
 			if (particleEffect == null) {
-				ParticleEffects.LOGGER.error("[DEV/Effect Registration] Looks like {} effect with color {} doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, statusEffect.getName().getString());
+				ParticleEffects.LOGGER.error("[DEV/Effect Registration] Looks like {} effect with color {} doesn't have textured particle, this shouldn't happen! Skipping its registration.", color, statusEffect.getName().getString());
 				continue;
 			}
 
 			List<ParticleEffect> effects = COLOR_TO_PARTICLES_MAP.get(color);
 			if (effects != null) {
 				if (ParticleEffects.getConfig().isDebugLogEnabled()) {
-					ParticleEffects.LOGGER.warn("[DEV/Effect Registration] Found registered effects for color {} from {} effect, skipping it registration. If you just mod user, ignore it.", color, statusEffect.getName().getString());
+					ParticleEffects.LOGGER.warn("[DEV/Effect Registration] Found registered effects for color {} from {} effect, skipping its registration. If you just mod user, ignore it.", color, statusEffect.getName().getString());
 				}
 			} else {
 				COLOR_TO_PARTICLES_MAP.put(color, List.of(particleEffect));
@@ -163,15 +164,15 @@ public class ParticleEffectsManager {
 
 	public static void onInitializeClient() {
 		for (ParticleEffect type : REGISTERED_PARTICLE_TYPES) {
-			ParticleFactoryRegistry.getInstance().register((/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/) type, TexturedParticleFactory::new);
+			ParticleFactoryRegistry.getInstance().register((/*? >=1.21 {*//*SimpleParticleType*//*?} else {*/DefaultParticleType/*?}*/) type, TexturedParticleFactory::new);
 		}
 	}
 
 	private static HashMap<ParticleEffect, StatusEffect> getMinecraftEffectWidthTexturedParticles() {
 		//? =1.20.1 {
-		/*return new HashMap<>();
-		 *///?} else {
-		HashMap<ParticleEffect, StatusEffect> map = new HashMap<>();
+		return new HashMap<>();
+		 //?} else {
+		/*HashMap<ParticleEffect, StatusEffect> map = new HashMap<>();
 
 		map.put(ParticleTypes.ITEM_SLIME, StatusEffects.OOZING.value());
 		map.put(ParticleTypes.ITEM_COBWEB, StatusEffects.WEAVING.value());
@@ -181,7 +182,7 @@ public class ParticleEffectsManager {
 		map.put(ParticleTypes.SMALL_GUST, StatusEffects.WIND_CHARGED.value());
 
 		return map;
-		//?}
+		*///?}
 	}
 
 	public static StatusEffect getVanillaStatusEffectByStatusEffect(ParticleEffect parameters) {
@@ -204,27 +205,39 @@ public class ParticleEffectsManager {
 	}
 
 	public static Particle processSplashPotionStageTwo(@Nullable World world, ParticleEffect original, Function<ParticleEffect, Particle> function, LocalRef<List<ParticleEffect>> localParticleEffects, int color) {
+		Supplier<Particle> particleSupplier = () -> function.apply(original);
+
 		if (!ParticleEffects.getConfig().isModEnabled()) {
-			return function.apply(original);
+			return markDebugData(21, particleSupplier);
 		}
 
 		List<ParticleEffect> list = localParticleEffects.get();
-		if (list == null || world == null) {
-			return function.apply(original);
+		if (list == null) {
+			return markDebugData(22, particleSupplier);
+		}
+		if (list.isEmpty()) {
+			return markDebugData(23, particleSupplier);
+		}
+		if (world == null) {
+			return markDebugData(24, particleSupplier);
 		}
 		ParticleEffect particleEffect = ListUtils.getRandomElement(list, world.getRandom());
 		if (particleEffect == null) {
-			return function.apply(original);
+			return markDebugData(25, particleSupplier);
 		}
-		//? =1.20.1 {
-		/*((PEType) particleEffect).particleEffects$setColor(-1);
-		 *///?} else {
+
 		((PEType) particleEffect).particleEffects$setColor(color);
-		//?}
 
 		ParticleCaptures.setParticle(particleEffect);
 		Particle apply = function.apply(particleEffect);
 		ParticleCaptures.setParticle(null);
 		return apply;
+	}
+
+	private static Particle markDebugData(int data, Supplier<Particle> supplier) {
+		ParticleCaptures.setDebugData(data);
+		Particle particle = supplier.get();
+		ParticleCaptures.setDebugData(null);
+		return particle;
 	}
 }
