@@ -117,7 +117,7 @@ public class ParticleManagerMixin {
 	private Particle markParticle(ParticleFactory<?> instance, ParticleEffect t, ClientWorld clientWorld, double a, double b, double c, double d, double e, double v, Operation<Particle> original) {
 		Particle particle = original.call(instance, t, clientWorld, a, b, c, d, e, v);
 		Integer debugData = ParticleCaptures.getDebugData();
-		if (debugData != null) {
+		if (debugData != null && particle != null) {
 			((PEDebugParticle) particle).particleEffects$setDebugData(debugData);
 		}
 		return particle;
