@@ -14,7 +14,7 @@ public class StatusEffectUtils {
 	}
 
 	//? if =1.20.1 {
-	// Yeah, I literally copied this thing from the original PotionUtils class to make this mod compatible with Alex Caves
+	/*// Yeah, I literally copied this thing from the original PotionUtils class to make this mod compatible with Alex Caves
 	// IDK why, for what, just did
 	public static int getColor(Collection<StatusEffectInstance> effects) {
 		if (!FabricLoader.getInstance().isModLoaded("alexscaves")) {
@@ -50,6 +50,6 @@ public class StatusEffectUtils {
 			}
 		}
 	}
-	//?}
+	*///?}
 
 }

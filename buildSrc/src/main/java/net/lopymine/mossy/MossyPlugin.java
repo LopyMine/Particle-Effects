@@ -1,21 +1,24 @@
 package net.lopymine.mossy;
 
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension;
-import java.io.*;
-import java.nio.file.Files;
-import java.util.*;
-import java.util.Map.Entry;
 import lombok.Getter;
 import me.modmuss50.mpp.ModPublishExtension;
-import net.fabricmc.loom.api.LoomGradleExtensionAPI;
-import net.fabricmc.loom.task.RemapJarTask;
-import net.lopymine.mossy.manager.*;
-import net.lopymine.mossy.multi.MultiVersion;
-import net.lopymine.mossy.tasks.*;
 import org.gradle.api.*;
 import org.gradle.api.plugins.*;
 import org.gradle.api.tasks.*;
 import org.gradle.jvm.tasks.Jar;
+
+import net.fabricmc.loom.api.LoomGradleExtensionAPI;
+import net.fabricmc.loom.task.RemapJarTask;
+
+import net.lopymine.mossy.manager.*;
+import net.lopymine.mossy.multi.MultiVersion;
+import net.lopymine.mossy.tasks.*;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.util.*;
+import java.util.Map.Entry;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
@@ -37,7 +40,7 @@ public class MossyPlugin implements Plugin<Project> {
 		plugins.apply("dev.kikugie.stonecutter");
 		plugins.apply("fabric-loom");
 		plugins.apply("me.modmuss50.mod-publish-plugin");
-		plugins.apply("dev.kikugie.j52j");
+		plugins.apply("dev.kikugie.fletching-table");
 
 		//
 

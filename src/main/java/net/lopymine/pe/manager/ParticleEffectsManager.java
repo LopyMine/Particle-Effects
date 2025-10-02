@@ -24,7 +24,7 @@ import java.util.stream.*;
 import net.minecraft.world.World;
 
 //? >=1.21
-/*import net.minecraft.registry.entry.RegistryEntry;*/
+import net.minecraft.registry.entry.RegistryEntry;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;
@@ -90,7 +90,7 @@ public class ParticleEffectsManager {
 			List<StatusEffectInstance> effects = potion.getEffects();
 
 			//? =1.20.1 {
-			int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
+			/*int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
 
 			List<ParticleEffect> particleEffects = effects.stream()
 					.map(StatusEffectInstance::getEffectType)
@@ -104,8 +104,8 @@ public class ParticleEffectsManager {
 					})
 					.toList();
 
-			//?} else {
-			/*OptionalInt optional = net.minecraft.component.type.PotionContentsComponent.mixColors(effects);
+			*///?} else {
+			OptionalInt optional = net.minecraft.component.type.PotionContentsComponent.mixColors(effects);
 			if (optional.isEmpty()) {
 				continue;
 			}
@@ -124,7 +124,7 @@ public class ParticleEffectsManager {
 						return Stream.of(particleEffect);
 					})
 					.toList();
-			*///?}
+			//?}
 
 			COLOR_TO_PARTICLES_MAP.put(color, particleEffects);
 		}
@@ -164,15 +164,15 @@ public class ParticleEffectsManager {
 
 	public static void onInitializeClient() {
 		for (ParticleEffect type : REGISTERED_PARTICLE_TYPES) {
-			ParticleFactoryRegistry.getInstance().register((/*? >=1.21 {*//*SimpleParticleType*//*?} else {*/DefaultParticleType/*?}*/) type, TexturedParticleFactory::new);
+			ParticleFactoryRegistry.getInstance().register((/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/) type, TexturedParticleFactory::new);
 		}
 	}
 
 	private static HashMap<ParticleEffect, StatusEffect> getMinecraftEffectWidthTexturedParticles() {
 		//? =1.20.1 {
-		return new HashMap<>();
-		 //?} else {
-		/*HashMap<ParticleEffect, StatusEffect> map = new HashMap<>();
+		/*return new HashMap<>();
+		 *///?} else {
+		HashMap<ParticleEffect, StatusEffect> map = new HashMap<>();
 
 		map.put(ParticleTypes.ITEM_SLIME, StatusEffects.OOZING.value());
 		map.put(ParticleTypes.ITEM_COBWEB, StatusEffects.WEAVING.value());
@@ -182,7 +182,7 @@ public class ParticleEffectsManager {
 		map.put(ParticleTypes.SMALL_GUST, StatusEffects.WIND_CHARGED.value());
 
 		return map;
-		*///?}
+		//?}
 	}
 
 	public static StatusEffect getVanillaStatusEffectByStatusEffect(ParticleEffect parameters) {
@@ -232,6 +232,59 @@ public class ParticleEffectsManager {
 		Particle apply = function.apply(particleEffect);
 		ParticleCaptures.setParticle(null);
 		return apply;
+	}
+
+	public static Particle swapParticle(World world, ParticleEffect original, Function<ParticleEffect, Particle> function, Supplier<Particle> originalCall/*? if =1.20.1 {*/, double x, double y, double z /*?}*/) {
+		if (!ParticleEffects.getConfig().isModEnabled()) {
+			return markDebugData(10, originalCall);
+		}
+
+		if (ParticleCaptures.getParticle() != original) {
+			return markDebugData(11, originalCall);
+		}
+
+		//? =1.20.1 {
+		/*boolean bl = original.equals(ParticleTypes.ENTITY_EFFECT);
+		boolean bl2 = original.equals(ParticleTypes.AMBIENT_ENTITY_EFFECT);
+		if (!bl && !bl2) {
+			return markDebugData(12, originalCall);
+		}
+
+		int color = ArgbUtils.getArgb(bl2 ? 38 : 255, (int) (x * 255), (int) (y * 255), (int) (z * 255));
+		*///?} else {
+		int color;
+
+		if (original instanceof /*? if >=1.21.8 {*/ TintedParticleEffect /*?} else {*/ /*EntityEffectParticleEffect *//*?}*/ effect) { // RECEIVES IN SINGLEPLAYER AND IN MULTIPLAYER
+			color = effect.color;
+		} else {
+			StatusEffect statusEffect = ParticleEffectsManager.getVanillaStatusEffectByStatusEffect(original);
+			color = statusEffect == null ? 0 : ArgbUtils.getColorWithoutAlpha(statusEffect.getColor());
+		}
+
+		if (color == 0) {
+			return markDebugData(13, originalCall);
+		}
+		//?}
+
+		List<ParticleEffect> list = ParticleEffectsManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
+		if (list == null) {
+			return markDebugData(14, originalCall);
+		}
+		if (list.isEmpty()) {
+			return markDebugData(15, originalCall);
+		}
+		if (world == null) {
+			return markDebugData(16, originalCall);
+		}
+
+		ParticleEffect particleEffect = ListUtils.getRandomElement(list, world.getRandom());
+		if (particleEffect == null) {
+			return markDebugData(17, originalCall);
+		}
+
+		((PEType) particleEffect).particleEffects$setColor(color);
+
+		return function.apply(particleEffect);
 	}
 
 	private static Particle markDebugData(int data, Supplier<Particle> supplier) {

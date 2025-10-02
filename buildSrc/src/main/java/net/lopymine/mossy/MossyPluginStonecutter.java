@@ -2,13 +2,14 @@ package net.lopymine.mossy;
 
 import dev.kikugie.stonecutter.controller.StonecutterControllerExtension;
 import dev.kikugie.stonecutter.data.StonecutterProject;
-import java.util.List;
 import lombok.experimental.ExtensionMethod;
 import org.gradle.*;
 import org.gradle.api.*;
 import org.gradle.api.initialization.Settings;
 import org.gradle.api.invocation.Gradle;
 import org.gradle.api.tasks.*;
+
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 @ExtensionMethod(MossyPlugin.class)

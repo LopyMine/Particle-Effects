@@ -28,14 +28,14 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 	private boolean needResetDebugData;
 
 	//? =1.20.1
-	@Shadow public abstract int getColor();
+	/*@Shadow public abstract int getColor();*/
 
 	public AreaEffectCloudEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
 
 	// LINGERING POTION
-	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/AreaEffectCloudEntity;getParticleType()Lnet/minecraft/particle/ParticleEffect;"), method = /*? if >=1.21.2 {*/ /*"clientTick" *//*?} else {*/ "tick" /*?}*/)
+	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/AreaEffectCloudEntity;getParticleType()Lnet/minecraft/particle/ParticleEffect;"), method = /*? if >=1.21.2 {*/ "clientTick" /*?} else {*/ /*"tick" *//*?}*/)
 	private ParticleEffect swapParticleType(AreaEffectCloudEntity instance, Operation<ParticleEffect> original) {
 		ParticleEffect originalParticle = original.call(instance);
 
@@ -44,13 +44,13 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 		}
 
 		//? =1.20.1 {
-		int color = this.getColor();
-		//?} else {
-		/*if (!(originalParticle instanceof /^? if >=1.21.8 {^/ /^TintedParticleEffect ^//^?} else {^/ EntityEffectParticleEffect /^?}^/ effect)) {
+		/*int color = this.getColor();
+		*///?} else {
+		if (!(originalParticle instanceof /*? if >=1.21.8 {*/ TintedParticleEffect /*?} else {*/ /*EntityEffectParticleEffect *//*?}*/ effect)) {
 			return this.markDebugData(32, originalParticle);
 		}
 		int color = effect.color;
-		*///?}
+		//?}
 
 		List<ParticleEffect> list = ParticleEffectsManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
 		if (list == null) {
@@ -60,7 +60,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 			return this.markDebugData(34, originalParticle);
 		}
 
-		ParticleEffect particleEffect = ListUtils.getRandomElement(list, this.getWorld().getRandom());
+		ParticleEffect particleEffect = ListUtils.getRandomElement(list, this./*? if >=1.21.9 {*/ /*getEntityWorld *//*?} else {*/ getWorld /*?}*/().getRandom());
 		if (particleEffect == null) {
 			return this.markDebugData(35, originalParticle);
 		}
@@ -72,7 +72,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 		return particleEffect;
 	}
 
-	@Inject(at = @At("TAIL"), method = /*? if >=1.21.2 {*/ /*"clientTick" *//*?} else {*/ "tick" /*?}*/)
+	@Inject(at = @At("TAIL"), method = /*? if >=1.21.2 {*/ "clientTick" /*?} else {*/ /*"tick" *//*?}*/)
 	private void resetParticle(CallbackInfo ci) {
 		if (this.needReset) {
 			this.needReset = false;

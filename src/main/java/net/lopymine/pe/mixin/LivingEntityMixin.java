@@ -1,6 +1,6 @@
 package net.lopymine.pe.mixin;
 //? =1.20.1 {
-import com.llamalad7.mixinextras.injector.wrapoperation.*;
+/*import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import net.lopymine.pe.capture.ParticleCaptures;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.*;
@@ -62,4 +62,4 @@ public abstract class LivingEntityMixin {
 	}
 
 }
-//?}
+*///?}
