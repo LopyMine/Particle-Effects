@@ -13,11 +13,11 @@
 	    /*? !1.20.1*/
 	    "SecondLivingEntityMixin",
 	    /*? >=1.21.9*/
-	    /*"BillboardParticleRendererMixin",*/
+	    "BillboardParticleRendererMixin",
 	    /*? >=1.21.9*/
-	    /*"ClientWorldMixin",*/
+	    "ClientWorldMixin",
 	    /*? <=1.21.8*/
-	    "WorldRendererMixin",
+	    /*"WorldRendererMixin",*/
 	    "StatusEffectsMixin",
 	    "AreaEffectCloudEntityMixin",
 	    "StatusEffectMixin",

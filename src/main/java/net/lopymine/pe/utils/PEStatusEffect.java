@@ -1,10 +1,10 @@
 package net.lopymine.pe.utils;
 
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.particles.ParticleOptions;
 
 public interface PEStatusEffect {
 
-	void particleEffects$setParticleEffect(ParticleEffect particleEffect);
+	void particleEffects$setParticleEffect(ParticleOptions particleEffect);
 
-	ParticleEffect particleEffects$getParticleEffect();
+	ParticleOptions particleEffects$getParticleEffect();
 }

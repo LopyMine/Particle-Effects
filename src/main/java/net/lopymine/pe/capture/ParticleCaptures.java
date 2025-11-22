@@ -1,19 +1,19 @@
 package net.lopymine.pe.capture;
 
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.particles.ParticleOptions;
 import org.jetbrains.annotations.Nullable;
 
 public class ParticleCaptures {
 
-	private final static ThreadLocal<ParticleEffect> MAIN = new ThreadLocal<>();
+	private final static ThreadLocal<ParticleOptions> MAIN = new ThreadLocal<>();
 	private final static ThreadLocal<Integer> DEBUG_DATA = new ThreadLocal<>();
 
-	public static void setParticle(ParticleEffect entity) {
+	public static void setParticle(ParticleOptions entity) {
 		MAIN.set(entity);
 	}
 
 	@Nullable
-	public static ParticleEffect getParticle() {
+	public static ParticleOptions getParticle() {
 		return MAIN.get();
 	}
 

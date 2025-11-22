@@ -1,15 +1,12 @@
 package net.lopymine.pe.utils;
 
-import net.minecraft.entity.effect.*;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.particles.ParticleOptions;
 
-import net.fabricmc.loader.api.FabricLoader;
-
-import java.util.Collection;
+import net.minecraft.world.effect.MobEffect;
 
 public class StatusEffectUtils {
 
-	public static void swapParticle(StatusEffect statusEffect, ParticleEffect particleEffect) {
+	public static void swapParticle(MobEffect statusEffect, ParticleOptions particleEffect) {
 		((PEStatusEffect) statusEffect).particleEffects$setParticleEffect(particleEffect);
 	}
 

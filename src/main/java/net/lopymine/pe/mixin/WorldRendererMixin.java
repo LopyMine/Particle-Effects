@@ -1,7 +1,7 @@
 package net.lopymine.pe.mixin;
 
 //? if <=1.21.8 {
-import com.llamalad7.mixinextras.injector.wrapoperation.*;
+/*import com.llamalad7.mixinextras.injector.wrapoperation.*;
 
 import com.llamalad7.mixinextras.sugar.*;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
@@ -27,7 +27,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //? =1.20.1
-/*import net.minecraft.util.math.ColorHelper.Argb;*/
+/^import net.minecraft.util.math.ColorHelper.Argb;^/
 
 @Debug(export = true)
 @Mixin(WorldRenderer.class)
@@ -38,7 +38,7 @@ public class WorldRendererMixin {
 	private ClientWorld world;
 
 	//? <=1.21.1 {
-	/*// SPLASH POTION
+	/^// SPLASH POTION
 	@Inject(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;ofBottomCenter(Lnet/minecraft/util/math/Vec3i;)Lnet/minecraft/util/math/Vec3d;"))
 	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects) {
 		ParticleEffectsManager.processSplashPotionStageOne(localParticleEffects, data);
@@ -54,7 +54,7 @@ public class WorldRendererMixin {
 				localParticleEffects,
 				color);
 	}
-	*///?}
+	^///?}
 
 
 	// ENTITY PARTICLES
@@ -66,10 +66,10 @@ public class WorldRendererMixin {
 				parameters,
 				function,
 				() -> function.apply(parameters)
-				/*? if =1.20.1 {*/, velocityX, velocityY, velocityZ /*?}*/
+				/^? if =1.20.1 {^//^, velocityX, velocityY, velocityZ ^//^?}^/
 		);
 	}
 
 }
 
-//?}
+*///?}

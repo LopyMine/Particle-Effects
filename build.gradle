@@ -25,6 +25,10 @@ mossyDependencies {
 	}
 }
 
+dependencies {
+	mappings loom.officialMojangMappings()
+}
+
 mossyResources {
 	//expandFiles = ["custom", "file", "patterns", "here"]
 }
