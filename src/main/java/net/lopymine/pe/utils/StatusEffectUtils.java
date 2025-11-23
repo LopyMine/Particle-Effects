@@ -1,8 +1,15 @@
 package net.lopymine.pe.utils;
 
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.effect.*;
 
-import net.minecraft.world.effect.MobEffect;
+//? if =1.20.1 {
+/*
+import net.minecraft.world.item.alchemy.PotionUtils;
+import java.util.Collection;
+import net.fabricmc.loader.api.FabricLoader;
+*/
+//?}
 
 public class StatusEffectUtils {
 
@@ -11,14 +18,15 @@ public class StatusEffectUtils {
 	}
 
 	//? if =1.20.1 {
+
 	/*// Yeah, I literally copied this thing from the original PotionUtils class to make this mod compatible with Alex Caves
 	// IDK why, for what, just did
-	public static int getColor(Collection<StatusEffectInstance> effects) {
+	public static int getColor(Collection<MobEffectInstance> collection) {
 		if (!FabricLoader.getInstance().isModLoaded("alexscaves")) {
-			return net.minecraft.potion.PotionUtil.getColor(effects);
+			return PotionUtils.getColor(collection);
 		}
 
-		if (effects.isEmpty()) {
+		if (collection.isEmpty()) {
 			return 3694022;
 		} else {
 			float f = 0.0F;
@@ -26,13 +34,13 @@ public class StatusEffectUtils {
 			float h = 0.0F;
 			int j = 0;
 
-			for (StatusEffectInstance statusEffectInstance : effects) {
-				if (statusEffectInstance.shouldShowParticles()) {
-					int k = statusEffectInstance.getEffectType().getColor();
-					int l = statusEffectInstance.getAmplifier() + 1;
-					f += (float) (l * (k >> 16 & 255)) / 255.0F;
-					g += (float) (l * (k >> 8 & 255)) / 255.0F;
-					h += (float) (l * (k & 255)) / 255.0F;
+			for (MobEffectInstance mobEffectInstance : collection) {
+				if (mobEffectInstance.isVisible()) {
+					int k = mobEffectInstance.getEffect().getColor();
+					int l = mobEffectInstance.getAmplifier() + 1;
+					f += l * (k >> 16 & 0xFF) / 255.0F;
+					g += l * (k >> 8 & 0xFF) / 255.0F;
+					h += l * (k & 0xFF) / 255.0F;
 					j += l;
 				}
 			}
@@ -40,9 +48,9 @@ public class StatusEffectUtils {
 			if (j == 0) {
 				return 0;
 			} else {
-				f = f / (float) j * 255.0F;
-				g = g / (float) j * 255.0F;
-				h = h / (float) j * 255.0F;
+				f = f / j * 255.0F;
+				g = g / j * 255.0F;
+				h = h / j * 255.0F;
 				return (int) f << 16 | (int) g << 8 | (int) h;
 			}
 		}

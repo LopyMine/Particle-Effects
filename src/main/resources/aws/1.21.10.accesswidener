@@ -1,5 +1,5 @@
 accessWidener v2 named
-# 1.21.8 AW
+# 1.21.10 AW
 
 accessible field net/minecraft/world/effect/MobEffect particleFactory Ljava/util/function/Function;
 mutable field net/minecraft/world/effect/MobEffect particleFactory Ljava/util/function/Function;
@@ -16,7 +16,10 @@ accessible field net/minecraft/client/particle/Particle xo D
 accessible field net/minecraft/client/particle/Particle yo D
 accessible field net/minecraft/client/particle/Particle zo D
 
-accessible field net/minecraft/client/particle/Particle alpha F
-accessible field net/minecraft/client/particle/Particle rCol F
-accessible field net/minecraft/client/particle/Particle gCol F
-accessible field net/minecraft/client/particle/Particle bCol F
+accessible field net/minecraft/client/particle/SingleQuadParticle alpha F
+accessible field net/minecraft/client/particle/SingleQuadParticle rCol F
+accessible field net/minecraft/client/particle/SingleQuadParticle gCol F
+accessible field net/minecraft/client/particle/SingleQuadParticle bCol F
+
+accessible field net/minecraft/client/renderer/LevelRenderer featureRenderDispatcher Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;
+accessible field net/minecraft/client/renderer/LevelRenderer levelRenderState Lnet/minecraft/client/renderer/state/LevelRenderState;

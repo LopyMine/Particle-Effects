@@ -1,5 +1,6 @@
 package net.lopymine.pe.client;
 
+import net.lopymine.pe.debug.DebugParticleInfoRenderer;
 import org.slf4j.*;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -15,6 +16,7 @@ public class ParticleEffectsClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		LOGGER.info("{} Client Initialized", ParticleEffects.MOD_NAME);
 		ParticleEffectsManager.onInitializeClient();
+		DebugParticleInfoRenderer.register();
 	}
 
 }

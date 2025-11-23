@@ -17,7 +17,11 @@ public class ParticleEffects implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
 	public static ResourceLocation id(String path) {
+		//? if >=1.21 {
 		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+		//?} else {
+		/*return ResourceLocation.tryBuild(MOD_ID, path);
+		 *///?}
 	}
 
 	public static Component text(String path, Object... args) {

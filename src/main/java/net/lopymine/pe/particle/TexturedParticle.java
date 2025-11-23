@@ -2,11 +2,8 @@ package net.lopymine.pe.particle;
 
 import lombok.*;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.particles./*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
 
-import net.lopymine.pe.utils.*;
 import net.minecraft.util.RandomSource;
 
 @Setter
@@ -17,7 +14,7 @@ public class TexturedParticle extends SpellParticle {
 
 	protected TexturedParticle(ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, SpriteSet spriteProvider, RandomSource random) {
 		super(clientWorld, d, e, f, g, h, i, spriteProvider);
-		super.setSprite(spriteProvider/*? if >=1.21.9 {*/.get(random) /*?}*/);
+		super.setSprite(spriteProvider.get(random));
 	}
 
 	@Override
@@ -27,7 +24,7 @@ public class TexturedParticle extends SpellParticle {
 
 	//? if <=1.21.8 {
 	/*@Override
-	public void setSpriteForAge(SpriteProvider spriteProvider) {
+	public void setSpriteFromAge(SpriteSet spriteSet) {
 
 	}
 	*///?}

@@ -2,47 +2,47 @@ package net.lopymine.pe.mixin;
 //? =1.20.1 {
 /*import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import net.lopymine.pe.capture.ParticleCaptures;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.*;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.util.math.ColorHelper.Argb;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.lopymine.pe.utils.*;
+import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 
 import net.lopymine.pe.ParticleEffects;
-import net.lopymine.pe.utils.ListUtils;
 
 import java.util.*;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-	@Shadow public abstract Map<StatusEffect, StatusEffectInstance> getActiveStatusEffects();
+	@Shadow public abstract Map<MobEffect, MobEffectInstance> getActiveEffectsMap();
 
-	@Shadow public abstract Random getRandom();
+	@Shadow public abstract RandomSource getRandom();
 
-	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), method = "tickStatusEffects")
-	private void swapParticle(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original) {
+	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"), method = "tickEffects")
+	private void swapParticle(Level instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original) {
 		Runnable originalCall = () -> original.call(instance, parameters, x, y, z, velocityX, velocityY, velocityZ);
 		if (!ParticleEffects.getConfig().isModEnabled()) {
 			this.markDebugData(51, originalCall);
 			return;
 		}
 
-		Set<StatusEffect> effects = this.getActiveStatusEffects().keySet();
+		Set<MobEffect> effects = this.getActiveEffectsMap().keySet();
 		if (!effects.isEmpty()) {
-			StatusEffect statusEffect = ListUtils.getRandomElement(effects.stream().toList(), this.getRandom());
+			MobEffect statusEffect = ListUtils.getRandomElement(effects.stream().toList(), this.getRandom());
 			if (statusEffect == null) {
 				this.markDebugData(52, originalCall);
 				return;
 			}
 
 			int color = statusEffect.getColor();
-			double red = Argb.getRed(color) / 255.0;
-			double green = Argb.getGreen(color) / 255.0;
-			double blue = Argb.getBlue(color) / 255.0;
+			double red = ArgbUtils.getRed(color) / 255.0;
+			double green = ArgbUtils.getGreen(color) / 255.0;
+			double blue = ArgbUtils.getBlue(color) / 255.0;
 
 			ParticleCaptures.setParticle(parameters);
 			original.call(instance, parameters, x, y, z, red, green, blue);

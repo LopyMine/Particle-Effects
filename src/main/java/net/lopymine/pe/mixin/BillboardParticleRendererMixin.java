@@ -21,7 +21,9 @@ public abstract class BillboardParticleRendererMixin extends ParticleGroup<Singl
 
 	@Inject(at = @At("HEAD"), method = "extractRenderState")
 	private void renderDebugInfo(Frustum frustum, Camera camera, float tickProgress, CallbackInfoReturnable<ParticleGroupRenderState> cir) {
-		DebugParticleInfoRenderer.renderDebugInfo(new PoseStack(), camera, tickProgress, this.particles);
+		for (SingleQuadParticle particle : this.particles) {
+			DebugParticleInfoRenderer.renderDebugInfo(new PoseStack(), camera, tickProgress, particle);
+		}
 	}
 
 }

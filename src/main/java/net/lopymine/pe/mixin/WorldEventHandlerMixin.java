@@ -7,9 +7,10 @@ import com.llamalad7.mixinextras.sugar.*;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.LevelEventHandler;
+import net.minecraft.client.renderer.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,7 +30,7 @@ public class WorldEventHandlerMixin {
 	//?} else {
 	/*@Shadow
 	@Final
-	private World world;
+	private Level level;
 	*///?}
 
 	// SPLASH POTION
@@ -55,10 +56,10 @@ public class WorldEventHandlerMixin {
 		);
 	}
 	//?} else {
-	/*@WrapOperation(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZDDDDDD)Lnet/minecraft/client/particle/Particle;", ordinal = 0))
-	private Particle swapParticles(net.minecraft.client.render.WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
+	/*@WrapOperation(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZDDDDDD)Lnet/minecraft/client/particle/Particle;", ordinal = 0))
+	private Particle swapParticles(LevelRenderer instance, ParticleOptions parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
 		return ParticleEffectsManager.processSplashPotionStageTwo(
-				this.world,
+				this.level,
 				parameters,
 				(particleEffect) -> original.call(instance, particleEffect, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ),
 				localParticleEffects,

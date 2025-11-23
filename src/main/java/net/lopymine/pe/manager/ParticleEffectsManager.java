@@ -2,7 +2,10 @@ package net.lopymine.pe.manager;
 
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import java.util.function.*;
+import lombok.experimental.ExtensionMethod;
 import net.lopymine.pe.capture.ParticleCaptures;
+import net.lopymine.pe.client.ParticleEffectsClient;
+import net.lopymine.pe.extension.RegistryExtension;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -21,10 +24,9 @@ import java.util.*;
 import java.util.stream.*;
 import net.minecraft.world.level.Level;
 
-//? >=1.21
-
 import org.jetbrains.annotations.Nullable;
 
+@ExtensionMethod(RegistryExtension.class)
 public class ParticleEffectsManager {
 
 	private static final List<ParticleOptions> REGISTERED_PARTICLE_TYPES = new ArrayList<>();
@@ -58,7 +60,7 @@ public class ParticleEffectsManager {
 		//-----------------------------------------------------//
 		// SWAP OLD PARTICLE TYPE OF STATUS EFFECTS TO NEW ONE //
 		//-----------------------------------------------------//
-		for (Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.listElements().toList()) {
+		for (Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.references()) {
 			MobEffect statusEffect = reference.value();
 			ResourceLocation id = reference.key().location();
 			if (!id.getNamespace().equals("minecraft")) {
@@ -76,7 +78,7 @@ public class ParticleEffectsManager {
 		// REGISTER EACH POTION COLOR TO LIST POTION EFFECTS //
 		//        POTION COLOR = MIXED COLORS OF EFFECTS     //
 		//---------------------------------------------------//
-		for (Reference<Potion> reference : BuiltInRegistries.POTION.listElements().toList()) {
+		for (Reference<Potion> reference : BuiltInRegistries.POTION.references()) {
 			Potion potion = reference.value();
 			ResourceLocation id = reference.key().location();
 			if (!id.getNamespace().equals("minecraft")) {
@@ -88,12 +90,12 @@ public class ParticleEffectsManager {
 			//? =1.20.1 {
 			/*int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
 
-			List<ParticleEffect> particleEffects = effects.stream()
-					.map(StatusEffectInstance::getEffectType)
+			List<ParticleOptions> particleEffects = effects.stream()
+					.map(MobEffectInstance::getEffect)
 					.flatMap((effect) -> {
-						ParticleEffect particleEffect = ((PEStatusEffect) effect).particleEffects$getParticleEffect();
+						ParticleOptions particleEffect = ((PEStatusEffect) effect).particleEffects$getParticleEffect();
 						if (particleEffect == null) {
-							ParticleEffectsClient.LOGGER.error("[DEV/Potion Registration] Looks like {} effect (from potion with color {}) doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, effect.getName().getString());
+							ParticleEffectsClient.LOGGER.error("[DEV/Potion Registration] Looks like {} effect (from potion with color {}) doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, effect.getDisplayName().getString());
 							return Stream.empty();
 						}
 						return Stream.of(particleEffect);
@@ -129,7 +131,7 @@ public class ParticleEffectsManager {
 		// NOT ALL EFFECTS CAN BE FOUND IN POTIONS, SO, WE ALSO //
 		//  NEED TO REGISTER EACH EFFECT COLOR TO THEIR EFFECT  //
 		//------------------------------------------------------//
-		for (Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.listElements().toList()) {
+		for (Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.references()) {
 			MobEffect statusEffect = reference.value();
 			ResourceLocation id = reference.key().location();
 			if (!id.getNamespace().equals("minecraft")) {
@@ -160,7 +162,7 @@ public class ParticleEffectsManager {
 
 	public static void onInitializeClient() {
 		for (ParticleOptions type : REGISTERED_PARTICLE_TYPES) {
-			ParticleFactoryRegistry.getInstance().register((/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/) type, TexturedParticleFactory::new);
+			ParticleFactoryRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
 		}
 	}
 
@@ -250,7 +252,7 @@ public class ParticleEffectsManager {
 		*///?} else {
 		int color;
 
-		if (original instanceof /*? if >=1.21.8 {*/ ColorParticleOption /*?} else {*/ /*EntityEffectParticleEffect *//*?}*/ effect) { // RECEIVES IN SINGLEPLAYER AND IN MULTIPLAYER
+		if (original instanceof /*? if >=1.21.8 {*/ ColorParticleOption /*?} else {*/ /*ColorParticleOption *//*?}*/ effect) { // RECEIVES IN SINGLEPLAYER AND IN MULTIPLAYER
 			color = effect.color;
 		} else {
 			MobEffect statusEffect = ParticleEffectsManager.getVanillaStatusEffectByStatusEffect(original);

@@ -1,10 +1,10 @@
 package net.lopymine.pe.mixin;
 
 import net.lopymine.pe.utils.*;
-import net.minecraft.core.particles./*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
+import net.minecraft.core.particles.SimpleParticleType;
 import org.spongepowered.asm.mixin.*;
 
-@Mixin(/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/.class)
+@Mixin(SimpleParticleType.class)
 public class SimpleParticleTypeMixin implements PEType {
 
 	@Unique

@@ -20,7 +20,7 @@ public abstract class ArrowEntityMixin extends Entity {
 		super(type, world);
 	}
 
-	@WrapOperation(at = @At(value = "INVOKE", target = /*? if >=1.21.5 {*/ "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V" /*?} else {*/ /*"Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V" *//*?}*/), method = "makeParticle")
+	@WrapOperation(at = @At(value = "INVOKE", target = /*? if >=1.21.5 {*/ "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V" /*?} else {*/ /*"Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V" *//*?}*/), method = "makeParticle")
 	private void markParticleFromArrow(Level instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original, @Local(ordinal = 1) int color) {
 		Runnable originalCall = () -> original.call(instance, parameters, x, y, z, velocityX, velocityY, velocityZ);
 
@@ -34,7 +34,7 @@ public abstract class ArrowEntityMixin extends Entity {
 			return;
 		}
 
-		ParticleOptions particleEffect = ListUtils.getRandomElement(list, this./*? if >=1.21.9 {*/ level /*?} else {*/ /*getWorld *//*?}*/().getRandom());
+		ParticleOptions particleEffect = ListUtils.getRandomElement(list, this.level().getRandom());
 		if (particleEffect == null) {
 			this.markDebugData(44, originalCall);
 			return;

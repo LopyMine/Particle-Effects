@@ -42,7 +42,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 		//? =1.20.1 {
 		/*int color = this.getColor();
 		*///?} else {
-		if (!(originalParticle instanceof /*? if >=1.21.8 {*/ ColorParticleOption /*?} else {*/ /*EntityEffectParticleEffect *//*?}*/ effect)) {
+		if (!(originalParticle instanceof /*? if >=1.21.8 {*/ ColorParticleOption /*?} else {*/ /*ColorParticleOption *//*?}*/ effect)) {
 			return this.markDebugData(32, originalParticle);
 		}
 		int color = effect.color;
@@ -56,7 +56,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 			return this.markDebugData(34, originalParticle);
 		}
 
-		ParticleOptions particleEffect = ListUtils.getRandomElement(list, this./*? if >=1.21.9 {*/ level /*?} else {*/ /*getWorld *//*?}*/().getRandom());
+		ParticleOptions particleEffect = ListUtils.getRandomElement(list, this.level().getRandom());
 		if (particleEffect == null) {
 			return this.markDebugData(35, originalParticle);
 		}

@@ -14,8 +14,8 @@ public class StatusEffectsMixin {
 		return original.call(statusEffectCategory, 16262180);
 	}
 	//?} else {
-	/*@WrapOperation(at = @At(value = "NEW", target = "(Lnet/minecraft/entity/effect/StatusEffectCategory;I)Lnet/minecraft/entity/effect/InstantStatusEffect;"), method = "<clinit>")
-	private static InstantStatusEffect fixColor(StatusEffectCategory statusEffectCategory, int i, Operation<InstantStatusEffect> original) {
+	/*@WrapOperation(at = @At(value = "NEW", target = "(Lnet/minecraft/world/effect/MobEffectCategory;I)Lnet/minecraft/world/effect/InstantenousMobEffect;", ordinal = 2), method = "<clinit>")
+	private static InstantenousMobEffect fixColor(MobEffectCategory statusEffectCategory, int i, Operation<InstantenousMobEffect> original) {
 		return original.call(statusEffectCategory, 16262180);
 	}
 	*///?}
