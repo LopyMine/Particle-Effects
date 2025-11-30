@@ -1,27 +1,27 @@
 package net.lopymine.pe.mixin;
 
 import net.lopymine.pe.utils.*;
-import net.minecraft.particle./*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/;
+import net.minecraft.core.particles.SimpleParticleType;
 import org.spongepowered.asm.mixin.*;
 
-@Mixin(/*? >=1.21 {*/SimpleParticleType/*?} else {*//*DefaultParticleType*//*?}*/.class)
+@Mixin(SimpleParticleType.class)
 public class SimpleParticleTypeMixin implements PEType {
 
 	@Unique
-	private int color;
+	private int particleEffects$color;
 
 	@Override
 	public int particleEffects$getColor() {
-		return this.color;
+		return this.particleEffects$color;
 	}
 
 	@Override
 	public void particleEffects$setColor(int color) {
 		// alpha not supported at <1.21
 		//? if <1.21 {
-		/*this.color = ArgbUtils.getArgb(255, ArgbUtils.getRed(color), ArgbUtils.getGreen(color), ArgbUtils.getBlue(color));
+		/*this.particleEffects$color = ArgbUtils.getArgb(255, ArgbUtils.getRed(color), ArgbUtils.getGreen(color), ArgbUtils.getBlue(color));
 		*///?} else {
-		this.color = color;
+		this.particleEffects$color = color;
 		//?}
 	}
 }

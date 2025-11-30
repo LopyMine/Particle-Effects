@@ -1,23 +1,23 @@
 package net.lopymine.pe.mixin;
 
-import net.minecraft.entity.effect.*;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.effect.MobEffect;
 import org.spongepowered.asm.mixin.*;
 
 import net.lopymine.pe.utils.PEStatusEffect;
 
-@Mixin(StatusEffect.class)
+@Mixin(MobEffect.class)
 public class StatusEffectMixin implements PEStatusEffect {
 
 	@Unique
-	private ParticleEffect particleEffect;
+	private ParticleOptions particleEffects$particleEffect;
 
 	@Override
-	public void particleEffects$setParticleEffect(ParticleEffect particleEffect) {
-		this.particleEffect = particleEffect;
+	public void particleEffects$setParticleEffect(ParticleOptions particleEffect) {
+		this.particleEffects$particleEffect = particleEffect;
 	}
 
-	public ParticleEffect particleEffects$getParticleEffect() {
-		return this.particleEffect;
+	public ParticleOptions particleEffects$getParticleEffect() {
+		return this.particleEffects$particleEffect;
 	}
 }

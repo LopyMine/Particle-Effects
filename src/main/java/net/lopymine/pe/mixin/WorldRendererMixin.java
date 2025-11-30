@@ -1,75 +1,65 @@
 package net.lopymine.pe.mixin;
 
 //? if <=1.21.8 {
-import com.llamalad7.mixinextras.injector.wrapoperation.*;
+/*import com.llamalad7.mixinextras.injector.wrapoperation.*;
 
 import com.llamalad7.mixinextras.sugar.*;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import java.util.List;
 import java.util.function.*;
-import net.lopymine.pe.capture.ParticleCaptures;
-import net.lopymine.pe.client.ParticleEffectsClient;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 
-import net.lopymine.pe.ParticleEffects;
 import net.lopymine.pe.manager.ParticleEffectsManager;
-import net.lopymine.pe.utils.*;
-import java.util.List;
 import org.jetbrains.annotations.Nullable;
-
-//? >=1.21
-import net.minecraft.entity.effect.StatusEffect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//? =1.20.1
-/*import net.minecraft.util.math.ColorHelper.Argb;*/
-
 @Debug(export = true)
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public class WorldRendererMixin {
 
 	@Shadow
 	@Nullable
-	private ClientWorld world;
+	private ClientLevel level;
 
 	//? <=1.21.1 {
-	/*// SPLASH POTION
-	@Inject(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;ofBottomCenter(Lnet/minecraft/util/math/Vec3i;)Lnet/minecraft/util/math/Vec3d;"))
-	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects) {
+	/^// SPLASH POTION
+	@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;atBottomCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
+	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects) {
 		ParticleEffectsManager.processSplashPotionStageOne(localParticleEffects, data);
 	}
 
 	// SPLASH POTION
-	@WrapOperation(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZDDDDDD)Lnet/minecraft/client/particle/Particle;", ordinal = 0))
-	private Particle swapParticles(WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, @Share("tp_effects") LocalRef<List<ParticleEffect>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
+	@WrapOperation(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZDDDDDD)Lnet/minecraft/client/particle/Particle;", ordinal = 0))
+	private Particle swapParticles(LevelRenderer instance, ParticleOptions parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
 		return ParticleEffectsManager.processSplashPotionStageTwo(
-				this.world,
+				this.level,
 				parameters,
 				(particleEffect) -> original.call(instance, particleEffect, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ),
 				localParticleEffects,
 				color);
 	}
-	*///?}
+	^///?}
 
 
 	// ENTITY PARTICLES
-	@WrapOperation(method = "addParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;spawnParticle(Lnet/minecraft/particle/ParticleEffect;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;"))
-	private Particle swapParticle(WorldRenderer instance, ParticleEffect parameters, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original) {
-		Function<ParticleEffect, Particle> function = (effect) -> original.call(instance, effect, alwaysSpawn, canSpawnOnMinimal, x, y, z, velocityX, velocityY, velocityZ);
+	@WrapOperation(method = "addParticle(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZZDDDDDD)Lnet/minecraft/client/particle/Particle;"))
+	private Particle swapParticle(LevelRenderer instance, ParticleOptions particleOptions, boolean alwaysSpawn, boolean canSpawnOnMinimal, double x, double y, double z, double vx, double vy, double vz, Operation<Particle> original) {
+		Function<ParticleOptions, Particle> function = (effect) -> original.call(instance, effect, alwaysSpawn, canSpawnOnMinimal, x, y, z, vx, vy, vz);
 		return ParticleEffectsManager.swapParticle(
-				this.world,
-				parameters,
+				this.level,
+				particleOptions,
 				function,
-				() -> function.apply(parameters)
-				/*? if =1.20.1 {*/, velocityX, velocityY, velocityZ /*?}*/
+				() -> function.apply(particleOptions)
+				/^? if =1.20.1 {^//^, vx, vy, vz ^//^?}^/
 		);
 	}
 
 }
 
-//?}
+*///?}

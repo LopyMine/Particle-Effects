@@ -8,15 +8,15 @@ import org.spongepowered.asm.mixin.*;
 public class ParticleMixin implements PEDebugParticle {
 
 	@Unique
-	private int debugData = 0;
+	private int particleEffects$debugData = 0;
 
 	@Override
 	public void particleEffects$setDebugData(int i) {
-		this.debugData = i;
+		this.particleEffects$debugData = i;
 	}
 
 	@Override
 	public int particleEffects$getDebugData() {
-		return this.debugData;
+		return this.particleEffects$debugData;
 	}
 }

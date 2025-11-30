@@ -2,14 +2,13 @@ package net.lopymine.pe.config;
 
 import com.google.gson.*;
 import lombok.*;
+import net.lopymine.pe.loader.MossyLoader;
 import org.slf4j.*;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.loader.api.FabricLoader;
 
 import net.lopymine.pe.ParticleEffects;
-import net.lopymine.pe.client.ParticleEffectsClient;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +25,7 @@ public class ParticleEffectsConfig {
 			Codec.BOOL.optionalFieldOf("debug_log", false).forGetter(ParticleEffectsConfig::isDebugLogEnabled)
 	).apply(instance, ParticleEffectsConfig::new));
 
-	private static final File CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve(ParticleEffects.MOD_ID + ".json5").toFile();
+	private static final File CONFIG_FILE = MossyLoader.getConfigDir().resolve(ParticleEffects.MOD_ID + ".json5").toFile();
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final Logger LOGGER = LoggerFactory.getLogger(ParticleEffects.MOD_NAME + "/Config");
 	private boolean modEnabled;

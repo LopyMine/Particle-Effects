@@ -1,7 +1,7 @@
 package net.lopymine.pe.utils;
 
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.ResourceLocation;
 
 import net.lopymine.pe.ParticleEffects;
 import net.lopymine.pe.modmenu.yacl.simple.SimpleContent;
@@ -26,27 +26,31 @@ public class ModMenuUtils {
 		return String.format("%s.modmenu.group.%s", ParticleEffects.MOD_ID, groupId);
 	}
 
-	public static Text getName(String key) {
-		return Text.translatable(key + ".name");
+	public static Component getName(String key) {
+		return Component.translatable(key + ".name");
 	}
 
-	public static Text getDescription(String key) {
-		return Text.translatable(key + ".description");
+	public static Component getDescription(String key) {
+		return Component.translatable(key + ".description");
 	}
 
-	public static Identifier getContentId(SimpleContent content, String optionId) {
+	public static ResourceLocation getContentId(SimpleContent content, String optionId) {
 		return ParticleEffects.id(String.format("textures/config/%s/%s.%s", content.getFolder(), optionId, content.getFileExtension()));
 	}
 
-	public static Text getModTitle() {
+	public static Component getModTitle() {
 		return ParticleEffects.text("modmenu.title");
 	}
 
-	public static Function<Boolean, Text> getEnabledOrDisabledFormatter() {
+	public static Function<Boolean, Component> getEnabledOrDisabledFormatter() {
 		return state -> ParticleEffects.text("modmenu.formatter.enabled_or_disabled." + state);
 	}
 
-	public static Text getNoConfigScreenMessage() {
+	public static MutableComponent getOldConfigScreenMessage(String version) {
+		return ParticleEffects.text("modmenu.old_config_library_screen.message", version, ParticleEffects.YACL_DEPEND_VERSION);
+	}
+
+	public static Component getNoConfigScreenMessage() {
 		return ParticleEffects.text("modmenu.no_config_library_screen.message");
 	}
 }

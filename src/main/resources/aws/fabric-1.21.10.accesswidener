@@ -1,0 +1,23 @@
+accessWidener v2 named
+# 1.21.10 AW
+
+accessible field net/minecraft/world/item/alchemy/Potion name Ljava/lang/String;
+accessible method net/minecraft/client/particle/SpellParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
+accessible field net/minecraft/core/particles/ColorParticleOption color I
+accessible class net/minecraft/world/effect/SaturationMobEffect
+
+accessible field net/minecraft/client/particle/Particle x D
+accessible field net/minecraft/client/particle/Particle y D
+accessible field net/minecraft/client/particle/Particle z D
+
+accessible field net/minecraft/client/particle/Particle xo D
+accessible field net/minecraft/client/particle/Particle yo D
+accessible field net/minecraft/client/particle/Particle zo D
+
+accessible field net/minecraft/client/particle/SingleQuadParticle alpha F
+accessible field net/minecraft/client/particle/SingleQuadParticle rCol F
+accessible field net/minecraft/client/particle/SingleQuadParticle gCol F
+accessible field net/minecraft/client/particle/SingleQuadParticle bCol F
+
+accessible field net/minecraft/client/renderer/LevelRenderer featureRenderDispatcher Lnet/minecraft/client/renderer/feature/FeatureRenderDispatcher;
+accessible field net/minecraft/client/renderer/LevelRenderer levelRenderState Lnet/minecraft/client/renderer/state/LevelRenderState;

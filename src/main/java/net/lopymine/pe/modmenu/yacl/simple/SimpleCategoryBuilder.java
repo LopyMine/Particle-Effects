@@ -2,7 +2,7 @@ package net.lopymine.pe.modmenu.yacl.simple;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.ConfigCategory.Builder;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import net.lopymine.pe.utils.ModMenuUtils;
 
@@ -12,7 +12,7 @@ public class SimpleCategoryBuilder {
 
 	private SimpleCategoryBuilder(String categoryId) {
 		String categoryKey = ModMenuUtils.getCategoryKey(categoryId);
-		Text categoryName = ModMenuUtils.getName(categoryKey);
+		Component categoryName = ModMenuUtils.getName(categoryKey);
 		this.builder = ConfigCategory.createBuilder().name(categoryName);
 	}
 

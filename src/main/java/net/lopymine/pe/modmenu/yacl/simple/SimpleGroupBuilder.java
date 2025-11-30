@@ -2,7 +2,7 @@ package net.lopymine.pe.modmenu.yacl.simple;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.OptionGroup.Builder;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import net.lopymine.pe.utils.ModMenuUtils;
 
@@ -12,8 +12,8 @@ public class SimpleGroupBuilder {
 
 	public SimpleGroupBuilder(String groupId) {
 		String groupKey = ModMenuUtils.getGroupKey(groupId);
-		Text groupName = ModMenuUtils.getName(groupKey);
-		Text description = ModMenuUtils.getDescription(groupKey);
+		Component groupName = ModMenuUtils.getName(groupKey);
+		Component description = ModMenuUtils.getDescription(groupKey);
 
 		this.groupBuilder = OptionGroup.createBuilder()
 				.name(groupName)
