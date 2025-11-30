@@ -26,17 +26,17 @@ public abstract class ArrowEntityMixin extends Entity {
 
 		List<ParticleOptions> list = ParticleEffectsManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
 		if (list == null) {
-			this.markDebugData(41, originalCall);
+			this.particleEffects$markDebugData(41, originalCall);
 			return;
 		}
 		if (list.isEmpty()) {
-			this.markDebugData(43, originalCall);
+			this.particleEffects$markDebugData(43, originalCall);
 			return;
 		}
 
 		ParticleOptions particleEffect = ListUtils.getRandomElement(list, this.level().getRandom());
 		if (particleEffect == null) {
-			this.markDebugData(44, originalCall);
+			this.particleEffects$markDebugData(44, originalCall);
 			return;
 		}
 
@@ -47,7 +47,7 @@ public abstract class ArrowEntityMixin extends Entity {
 	}
 
 	@Unique
-	private void markDebugData(int data, Runnable originalCall) {
+	private void particleEffects$markDebugData(int data, Runnable originalCall) {
 		ParticleCaptures.setDebugData(data);
 		originalCall.run();
 		ParticleCaptures.setDebugData(null);

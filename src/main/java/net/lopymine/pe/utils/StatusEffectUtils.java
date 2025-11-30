@@ -1,15 +1,15 @@
 package net.lopymine.pe.utils;
 
+import net.lopymine.pe.loader.MossyLoader;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.effect.*;
 
 //? if =1.20.1 {
-/*
-import net.minecraft.world.item.alchemy.PotionUtils;
+
+/*import net.minecraft.world.item.alchemy.PotionUtils;
 import java.util.Collection;
-import net.fabricmc.loader.api.FabricLoader;
-*/
-//?}
+
+*///?}
 
 public class StatusEffectUtils {
 
@@ -22,7 +22,7 @@ public class StatusEffectUtils {
 	/*// Yeah, I literally copied this thing from the original PotionUtils class to make this mod compatible with Alex Caves
 	// IDK why, for what, just did
 	public static int getColor(Collection<MobEffectInstance> collection) {
-		if (!FabricLoader.getInstance().isModLoaded("alexscaves")) {
+		if (!MossyLoader.isModLoaded("alexscaves", false)) {
 			return PotionUtils.getColor(collection);
 		}
 

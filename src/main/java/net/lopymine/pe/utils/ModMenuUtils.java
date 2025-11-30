@@ -1,6 +1,6 @@
 package net.lopymine.pe.utils;
 
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 
 import net.lopymine.pe.ParticleEffects;
@@ -44,6 +44,10 @@ public class ModMenuUtils {
 
 	public static Function<Boolean, Component> getEnabledOrDisabledFormatter() {
 		return state -> ParticleEffects.text("modmenu.formatter.enabled_or_disabled." + state);
+	}
+
+	public static MutableComponent getOldConfigScreenMessage(String version) {
+		return ParticleEffects.text("modmenu.old_config_library_screen.message", version, ParticleEffects.YACL_DEPEND_VERSION);
 	}
 
 	public static Component getNoConfigScreenMessage() {

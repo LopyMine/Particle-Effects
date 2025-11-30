@@ -1,0 +1,15 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "Візуальний мод Fabric, який додає унікальні текстуровані частинки для кожного стандартного ефекту Minecraft!",
+	"${mod_id}.modmenu.title": "Налаштування §l${mod_name}",
+	"${mod_id}.modmenu.no_config_library_screen.message": "Вам потрібно встановити §6§lYet Another Config Lib [YACL]§f, щоб відкрити екран налаштувань ${mod_name}\n\n§a§lВідкрити сторінку §6§lYACL§a§l на Modrinth?",
+
+	"${mod_id}.modmenu.category.general.name": "§lЗагальні",
+
+	"${mod_id}.modmenu.option.mod_enabled.name": "Мод увімкнено",
+	"${mod_id}.modmenu.option.mod_enabled.description": "Якщо ввімкнено, кожна частинка кожного ефекту буде замінено унікальною текстурою; якщо вимкнено, не буде.",
+	"${mod_id}.modmenu.option.debug_log_enabled.name": "§6Журнал налагодження ввімкнено",
+	"${mod_id}.modmenu.option.debug_log_enabled.description": "Якщо ввімкнено, додаткова інформація буде зареєстрована на консолі для налагодження; якщо вимкнено, не буде.",
+
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.true": "УВІМК.",
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.false": "ВИМК."
+}

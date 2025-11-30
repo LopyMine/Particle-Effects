@@ -19,9 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AreaEffectCloudEntityMixin extends Entity {
 
 	@Unique
-	private boolean needReset;
+	private boolean particleEffects$needReset;
 	@Unique
-	private boolean needResetDebugData;
+	private boolean particleEffects$needResetDebugData;
 
 	//? =1.20.1
 	/*@Shadow public abstract int getColor();*/
@@ -36,54 +36,54 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 		ParticleOptions originalParticle = original.call(instance);
 
 		if (!ParticleEffects.getConfig().isModEnabled()) {
-			return this.markDebugData(31, originalParticle);
+			return this.particleEffects$markDebugData(31, originalParticle);
 		}
 
 		//? =1.20.1 {
 		/*int color = this.getColor();
 		*///?} else {
 		if (!(originalParticle instanceof /*? if >=1.21.8 {*/ ColorParticleOption /*?} else {*/ /*ColorParticleOption *//*?}*/ effect)) {
-			return this.markDebugData(32, originalParticle);
+			return this.particleEffects$markDebugData(32, originalParticle);
 		}
 		int color = effect.color;
 		//?}
 
 		List<ParticleOptions> list = ParticleEffectsManager.getParticleEffects(ArgbUtils.getColorWithoutAlpha(color));
 		if (list == null) {
-			return this.markDebugData(33, originalParticle);
+			return this.particleEffects$markDebugData(33, originalParticle);
 		}
 		if (list.isEmpty()) {
-			return this.markDebugData(34, originalParticle);
+			return this.particleEffects$markDebugData(34, originalParticle);
 		}
 
 		ParticleOptions particleEffect = ListUtils.getRandomElement(list, this.level().getRandom());
 		if (particleEffect == null) {
-			return this.markDebugData(35, originalParticle);
+			return this.particleEffects$markDebugData(35, originalParticle);
 		}
 
 		((PEType) particleEffect).particleEffects$setColor(color);
 
 		ParticleCaptures.setParticle(particleEffect);
-		this.needReset = true;
+		this.particleEffects$needReset = true;
 		return particleEffect;
 	}
 
 	@Inject(at = @At("TAIL"), method = /*? if >=1.21.2 {*/ "clientTick" /*?} else {*/ /*"tick" *//*?}*/)
 	private void resetParticle(CallbackInfo ci) {
-		if (this.needReset) {
-			this.needReset = false;
+		if (this.particleEffects$needReset) {
+			this.particleEffects$needReset = false;
 			ParticleCaptures.setParticle(null);
 		}
-		if (this.needResetDebugData) {
-			this.needResetDebugData = false;
+		if (this.particleEffects$needResetDebugData) {
+			this.particleEffects$needResetDebugData = false;
 			ParticleCaptures.setDebugData(null);
 		}
 	}
 
 	@Unique
-	private ParticleOptions markDebugData(int data, ParticleOptions originalParticle) {
+	private ParticleOptions particleEffects$markDebugData(int data, ParticleOptions originalParticle) {
 		ParticleCaptures.setDebugData(data);
-		this.needResetDebugData = true;
+		this.particleEffects$needResetDebugData = true;
 		return originalParticle;
 	}
 

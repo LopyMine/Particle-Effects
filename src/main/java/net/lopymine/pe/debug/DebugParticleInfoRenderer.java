@@ -2,6 +2,7 @@ package net.lopymine.pe.debug;
 
 import java.util.Queue;
 import net.lopymine.pe.ParticleEffects;
+import net.lopymine.pe.mixin.ParticleEngineMixin;
 import net.lopymine.pe.particle.TexturedParticle;
 import net.lopymine.pe.utils.*;
 import net.minecraft.client.*;
@@ -14,44 +15,41 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-
-//? if =1.20.1 {
-/*
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-*/
-//?}
+import org.joml.Quaternionf;
 
 public class DebugParticleInfoRenderer {
 
-	public static void register() {
-		//? if =1.20.1 {
-		/*WorldRenderEvents.AFTER_ENTITIES.register((context) -> {
-			for (Queue<Particle> value : Minecraft.getInstance().particleEngine.particles.values()) {
-				for (Particle particle : value) {
-					DebugParticleInfoRenderer.renderDebugInfo(context.matrixStack(), context.camera(), context.tickDelta(), particle);
-				}
+	public static void renderAll(PoseStack matrices, Vec3 camera, Quaternionf cameraRotation, float tickProgress) {
+		//? if >=1.21.9 {
+		for (ParticleGroup<?> value : ((ParticleEngineMixin) Minecraft.getInstance().particleEngine).getParticles().values()) {
+			for (Particle particle : value.getAll()) {
+				renderDebugInfo(matrices, camera, cameraRotation, tickProgress, particle);
 			}
-		});
+		}
+		//?} else {
+		/*for (Queue<Particle> value : ((ParticleEngineMixin) Minecraft.getInstance().particleEngine).getParticles().values()) {
+			for (Particle particle : value) {
+				renderDebugInfo(matrices, camera, cameraRotation, tickProgress, particle);
+			}
+		}
 		*///?}
 	}
 
-	public static void renderDebugInfo(PoseStack matrices, Camera camera, float tickProgress, Particle particle) {
+	public static void renderDebugInfo(PoseStack matrices, Vec3 camera, Quaternionf cameraRotation, float tickProgress, Particle particle) {
 		if (!ParticleEffects.getConfig().isDebugLogEnabled()) {
 			return;
 		}
 
-		Vec3 vec3d = camera.getPosition();
-		float x = (float) (Mth.lerp(tickProgress, particle.xo, particle.x) - vec3d.x());
-		float y = (float) (Mth.lerp(tickProgress, particle.yo, particle.y) - vec3d.y());
-		float z = (float) (Mth.lerp(tickProgress, particle.zo, particle.z) - vec3d.z());
+		float x = (float) (Mth.lerp(tickProgress, particle.xo, particle.x) - camera.x());
+		float y = (float) (Mth.lerp(tickProgress, particle.yo, particle.y) - camera.y());
+		float z = (float) (Mth.lerp(tickProgress, particle.zo, particle.z) - camera.z());
 		Font textRenderer = Minecraft.getInstance().font;
 
 		matrices.pushPose();
 		matrices.translate(x, y + 0.5D, z);
 		//? if <=1.21.8 {
-		/*matrices.mulPose(camera.rotation());
+		/*matrices.mulPose(cameraRotation);
 		matrices.scale(/^? if =1.20.1 {^/ /^- ^//^?}^/0.015F, -0.015F, 0.015F);
-		int opacity = (int) (Minecraft.getInstance().options.getBackgroundOpacity(0.25F) * 255.0F) << 24;
 		*///?}
 
 		String[] text = getDebugInfo(particle);
@@ -59,10 +57,10 @@ public class DebugParticleInfoRenderer {
 		int yOffset = 0;
 		for (String line : text) {
 			//? if >=1.21.9 {
-			Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), true, LightTexture.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
+			Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightTexture.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
 			//?} else {
 			/*float f = (float) (-textRenderer.width(line)) / 2.0F;
-			textRenderer.drawInBatch(line, f, (float) -yOffset, -1, false, matrices.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(), DisplayMode.NORMAL, opacity, LightTexture.FULL_BRIGHT);
+			textRenderer.drawInBatch(line, f, (float) -yOffset, -1, false, matrices.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(), DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 			*///?}
 			yOffset += textRenderer.lineHeight + 1;
 		}

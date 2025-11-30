@@ -3,7 +3,6 @@ package net.lopymine.pe.mixin;
 /*import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import net.lopymine.pe.capture.ParticleCaptures;
 import net.lopymine.pe.utils.*;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.*;
@@ -27,7 +26,7 @@ public abstract class LivingEntityMixin {
 	private void swapParticle(Level instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original) {
 		Runnable originalCall = () -> original.call(instance, parameters, x, y, z, velocityX, velocityY, velocityZ);
 		if (!ParticleEffects.getConfig().isModEnabled()) {
-			this.markDebugData(51, originalCall);
+			this.particleEffects$markDebugData(51, originalCall);
 			return;
 		}
 
@@ -35,7 +34,7 @@ public abstract class LivingEntityMixin {
 		if (!effects.isEmpty()) {
 			MobEffect statusEffect = ListUtils.getRandomElement(effects.stream().toList(), this.getRandom());
 			if (statusEffect == null) {
-				this.markDebugData(52, originalCall);
+				this.particleEffects$markDebugData(52, originalCall);
 				return;
 			}
 
@@ -55,7 +54,7 @@ public abstract class LivingEntityMixin {
 	}
 
 	@Unique
-	private void markDebugData(int data, Runnable originalCall) {
+	private void particleEffects$markDebugData(int data, Runnable originalCall) {
 		ParticleCaptures.setDebugData(data);
 		originalCall.run();
 		ParticleCaptures.setDebugData(null);

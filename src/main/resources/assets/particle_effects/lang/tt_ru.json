@@ -1,0 +1,13 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "Ваниль Minecraft'дагы Һәр тәэсир өчен уникаль текстураланган кисәкчекләрне өсти торган визуаль Fabric моды!",
+	"${mod_id}.modmenu.title": "§l${mod_name} көйләүләре",
+	"${mod_id}.modmenu.no_config_library_screen.message": "${mod_name} көйләүләре экранын ачу өчен Сезгә §6§lYet Another Config Lib [YACL]§f утыртырга кирәк\n\n§6§lYACL §a§lModrinth битен ачаргамы?",
+
+	"${mod_id}.modmenu.category.general.name": "§lТөп",
+
+	"${mod_id}.modmenu.option.mod_enabled.name": "Модны кушу",
+	"${mod_id}.modmenu.option.mod_enabled.description": "Кушылса, һәр тәэсир һәр кисәкчеге уникаль текстурага үзгәртеләчәк; Сүндерелсә, үзгәртелмәячәк.",
+
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.true": "Кушык",
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.false": "Сүнек"
+}

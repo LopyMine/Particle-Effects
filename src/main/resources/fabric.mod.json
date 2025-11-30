@@ -16,13 +16,13 @@
     "environment": "client",
     "entrypoints": {
         "main": [
-            "net.lopymine.pe.ParticleEffects"
+            "net.lopymine.pe.entrypoint.PEFabricEntrypoint"
         ],
         "client": [
-            "net.lopymine.pe.client.ParticleEffectsClient"
+            "net.lopymine.pe.entrypoint.PEFabricClientEntrypoint"
         ],
         "modmenu": [
-            "net.lopymine.pe.modmenu.ModMenuIntegration"
+            "net.lopymine.pe.modmenu.PEModMenuIntegration"
         ]
     },
     "depends": {
@@ -31,8 +31,8 @@
         "java": ">=${java}",
         "${fabric_api_id}": "*"
     },
-    "accessWidener": "aws/${minecraft}.accesswidener",
-    "mixins": [
-        "${mod_id}.mixins.json"
-    ]
+	"accessWidener": "aws/fabric-${minecraft}.accesswidener",
+	"mixins": [
+		"${fabric_trick_mixin_configs}"
+	]
 }
