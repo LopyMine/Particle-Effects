@@ -8,9 +8,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
 @Mod(ParticleEffects.MOD_ID)
-public class MossyNeoForgeEntrypoint {
+public class PENeoForgeEntrypoint {
 
-	public MossyNeoForgeEntrypoint(IEventBus eventBus) {
+	public PENeoForgeEntrypoint(IEventBus eventBus) {
 		ParticleEffectsManager.PARTICLES_REGISTER.register(eventBus);
 		eventBus.addListener(ParticleEffectsManager::onCommonSetup);
 		eventBus.addListener(ParticleEffectsManager::registerParticleFactories);

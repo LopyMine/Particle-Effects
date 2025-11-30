@@ -10,9 +10,9 @@ import net.neoforged.fml.*;
 import net.neoforged.fml.common.Mod;
 
 @Mod(value = ParticleEffects.MOD_ID, dist = Dist.CLIENT)
-public class MossyNeoForgeClientEntrypoint {
+public class PENeoForgeClientEntrypoint {
 
-	public MossyNeoForgeClientEntrypoint(ModContainer container) {
+	public PENeoForgeClientEntrypoint(ModContainer container) {
 		ParticleEffectsClient.onInitializeClient();
 		PEModMenuIntegration integration = new PEModMenuIntegration();
 		integration.register(container);
