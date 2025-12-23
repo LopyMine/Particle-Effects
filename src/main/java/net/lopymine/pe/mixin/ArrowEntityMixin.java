@@ -7,11 +7,18 @@ import net.lopymine.pe.capture.ParticleCaptures;
 import net.lopymine.pe.manager.ParticleEffectsManager;
 import net.lopymine.pe.utils.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
+
+//? if >=1.21.11 {
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+//?} else {
+/*
+import net.minecraft.world.entity.projectile.Arrow;
+*/
+//?}
 
 @Mixin(Arrow.class)
 public abstract class ArrowEntityMixin extends Entity {

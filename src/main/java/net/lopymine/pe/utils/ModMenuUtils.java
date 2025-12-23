@@ -1,7 +1,7 @@
 package net.lopymine.pe.utils;
 
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import net.lopymine.pe.ParticleEffects;
 import net.lopymine.pe.modmenu.yacl.simple.SimpleContent;
@@ -34,7 +34,7 @@ public class ModMenuUtils {
 		return Component.translatable(key + ".description");
 	}
 
-	public static ResourceLocation getContentId(SimpleContent content, String optionId) {
+	public static Identifier getContentId(SimpleContent content, String optionId) {
 		return ParticleEffects.id(String.format("textures/config/%s/%s.%s", content.getFolder(), optionId, content.getFileExtension()));
 	}
 

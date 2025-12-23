@@ -2,7 +2,7 @@ package net.lopymine.pe;
 
 import lombok.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.*;
 
 import net.lopymine.pe.config.ParticleEffectsConfig;
@@ -12,12 +12,12 @@ public class ParticleEffects  {
 
 	public static final String MOD_NAME = /*$ mod_name*/ "Particle Effects";
 	public static final String MOD_ID = /*$ mod_id*/ "particle_effects";
-	public static final String YACL_DEPEND_VERSION = /*$ yacl*/ "3.8.0+1.21.9-fabric";
+	public static final String YACL_DEPEND_VERSION = /*$ yacl*/ "3.8.1+1.21.11-fabric";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-	public static ResourceLocation id(String path) {
+	public static Identifier id(String path) {
 		//? if >=1.21 {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 		//?} else {
 		/*return ResourceLocation.tryBuild(MOD_ID, path);
 		 *///?}

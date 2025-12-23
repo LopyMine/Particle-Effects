@@ -9,6 +9,7 @@ import net.minecraft.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.util.*;
 import org.jetbrains.annotations.NotNull;
 
 public class NoConfigLibraryScreen {

@@ -16,7 +16,7 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.item.alchemy.Potion;
 
 import net.minecraft.core.Holder.Reference;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.lopymine.pe.ParticleEffects;
 import net.lopymine.pe.utils.*;
 import java.util.*;
@@ -77,8 +77,8 @@ public class ParticleEffectsManager {
 		return COLOR_TO_PARTICLES_MAP.get(i);
 	}
 
-	private static void registerParticleTypeForEffect(MobEffect statusEffect, ResourceLocation effectId) {
-		ResourceLocation modEffectId = getModEffectId(statusEffect, effectId);
+	private static void registerParticleTypeForEffect(MobEffect statusEffect, Identifier effectId) {
+		Identifier modEffectId = getModEffectId(statusEffect, effectId);
 
 		//? if fabric {
 		// CREATE PARTICLE TYPE
@@ -109,7 +109,7 @@ public class ParticleEffectsManager {
 
 	}
 
-	private static ResourceLocation getModEffectId(MobEffect statusEffect, ResourceLocation effectId) {
+	private static Identifier getModEffectId(MobEffect statusEffect, Identifier effectId) {
 		boolean bl = MINECRAFT_EFFECTS_WITH_TEXTURED_PARTICLE.containsValue(statusEffect);
 		return ParticleEffects.id(effectId.getPath() + (bl ? "_new" : ""));
 	}
@@ -120,7 +120,7 @@ public class ParticleEffectsManager {
 		//-----------------------------------------------------//
 		for (Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.references()) {
 			MobEffect statusEffect = reference.value();
-			ResourceLocation id = reference.key().location();
+			Identifier id = reference.key().identifier();
 			if (!id.getNamespace().equals("minecraft")) {
 				continue;
 			}
@@ -156,7 +156,7 @@ public class ParticleEffectsManager {
 		//---------------------------------------------------//
 		for (Reference<Potion> reference : BuiltInRegistries.POTION.references()) {
 			Potion potion = reference.value();
-			ResourceLocation id = reference.key().location();
+			Identifier id = reference.key().identifier();
 			if (!id.getNamespace().equals("minecraft")) {
 				continue;
 			}
@@ -209,7 +209,7 @@ public class ParticleEffectsManager {
 		//------------------------------------------------------//
 		for (Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.references()) {
 			MobEffect statusEffect = reference.value();
-			ResourceLocation id = reference.key().location();
+			Identifier id = reference.key().identifier();
 			if (!id.getNamespace().equals("minecraft")) {
 				continue;
 			}
