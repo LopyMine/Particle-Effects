@@ -84,7 +84,7 @@ public class ParticleEffectsManager {
 		// CREATE PARTICLE TYPE
 		ParticleOptions type = Registry.register(
 				BuiltInRegistries.PARTICLE_TYPE,
-				modEffectId, // WE NEED IT TO AVOID ISSUE WITH VANILLA TEXTURED PARTICLES
+				modEffectId,
 				FabricParticleTypes.simple()
 		);
 
@@ -111,6 +111,7 @@ public class ParticleEffectsManager {
 
 	private static Identifier getModEffectId(MobEffect statusEffect, Identifier effectId) {
 		boolean bl = MINECRAFT_EFFECTS_WITH_TEXTURED_PARTICLE.containsValue(statusEffect);
+		// WE NEED IT TO AVOID ISSUE WITH VANILLA TEXTURED PARTICLES
 		return ParticleEffects.id(effectId.getPath() + (bl ? "_new" : ""));
 	}
 
