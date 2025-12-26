@@ -24,7 +24,7 @@ public abstract class AreaEffectCloudEntityMixin extends Entity {
 	private boolean particleEffects$needResetDebugData;
 
 	//? =1.20.1
-	/*@Shadow public abstract int getColor();*/
+	//@Shadow public abstract int getColor();
 
 	public AreaEffectCloudEntityMixin(EntityType<?> type, Level world) {
 		super(type, world);

@@ -7,7 +7,7 @@
     ],
     "client": [
 	    /*? =1.20.1*/
-	    /*"LivingEntityMixin",*/
+	    //"LivingEntityMixin",
 	    /*? >=1.21.2*/
 	    "WorldEventHandlerMixin",
 	    /*? !1.20.1*/
@@ -15,7 +15,7 @@
 	    /*? >=1.21.9*/
 	    "ClientWorldMixin",
 	    /*? <=1.21.8*/
-	    /*"WorldRendererMixin",*/
+	    //"WorldRendererMixin",
 	    "StatusEffectsMixin",
 	    "AreaEffectCloudEntityMixin",
 	    "StatusEffectMixin",
@@ -24,6 +24,7 @@
 	    "ParticleMixin",
 	    "ArrowEntityMixin",
 	    "WorldRendererDebugParticlesMixin",
+	    "oldpotions.MobEffectMixin",
 	    "ParticleEngineMixin"
     ],
     "injectors": {

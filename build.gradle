@@ -17,7 +17,14 @@ mossyDependencies {
 	parchment = prop("build.parchment")
 
 	additional {
-		//override("modCompileOnly", "yacl")
+		//disable("oldpotions")
+	}
+}
+
+dependencies {
+	def oldPotions = prop("dep.oldpotions")
+	if (oldPotions != "unknown") {
+		implementation group: 'com.electronwill.night-config', name: 'toml', version: '3.6.7'
 	}
 }
 

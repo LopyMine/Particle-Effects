@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.*;
 //? if >=1.21.11 {
 import net.minecraft.world.entity.projectile.arrow.Arrow;
 //?} else {
-/*
-import net.minecraft.world.entity.projectile.Arrow;
-*/
-//?}
+
+/*import net.minecraft.world.entity.projectile.Arrow;
+
+*///?}
 
 @Mixin(Arrow.class)
 public abstract class ArrowEntityMixin extends Entity {

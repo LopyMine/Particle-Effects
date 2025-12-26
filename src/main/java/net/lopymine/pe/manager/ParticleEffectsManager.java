@@ -6,6 +6,7 @@ import java.util.function.*;
 import lombok.experimental.ExtensionMethod;
 import net.lopymine.pe.capture.ParticleCaptures;
 import net.lopymine.pe.client.ParticleEffectsClient;
+import net.lopymine.pe.compat.LoadedMods;
 import net.lopymine.pe.extension.RegistryExtension;
 import net.lopymine.pe.particle.TexturedParticleFactory;
 import net.minecraft.client.particle.Particle;
@@ -50,6 +51,9 @@ import net.minecraftforge.registries.*;
 
 @ExtensionMethod(RegistryExtension.class)
 public class ParticleEffectsManager {
+
+	public static boolean redirectEnabled = false;
+	public static boolean redirectToVanillaEffectColors = true;
 
 	//? if fabric {
 	private static final List<ParticleOptions> REGISTERED_PARTICLE_TYPES = new ArrayList<>();
@@ -201,7 +205,19 @@ public class ParticleEffectsManager {
 					.toList();
 			//?}
 
-			COLOR_TO_PARTICLES_MAP.put(color, particleEffects);
+			List<ParticleOptions> list = COLOR_TO_PARTICLES_MAP.get(color);
+			if (list != null) {
+				if (ParticleEffects.getConfig().isDebugLogEnabled()) {
+					//? if >=1.21.4 {
+					String potionName = potion.name();
+					//?} else {
+					/*String potionName = potion.name;
+					*///?}
+					ParticleEffects.LOGGER.warn("[DEV/Potion Registration] Found registered effects for color {} from {} potion, skipping its registration. If you just mod user, ignore it.", color, potionName);
+				}
+			} else {
+				COLOR_TO_PARTICLES_MAP.put(color, particleEffects);
+			}
 		}
 
 		//------------------------------------------------------//
@@ -257,7 +273,16 @@ public class ParticleEffectsManager {
 	public static void onCommonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			swapParticleTypes();
-			registerParticleColorsForTypes();
+			if (LoadedMods.isAnyOldPotionsModLoaded()) {
+				ParticleEffectsManager.redirectEnabled = true;
+				ParticleEffectsManager.redirectToVanillaEffectColors = true;
+				ParticleEffectsManager.registerParticleColorsForTypes();
+				ParticleEffectsManager.redirectToVanillaEffectColors = false;
+				ParticleEffectsManager.registerParticleColorsForTypes();
+				ParticleEffectsManager.redirectEnabled = false;
+			} else {
+				registerParticleColorsForTypes();
+			}
 		});
 	}
 	*///?}
@@ -274,7 +299,16 @@ public class ParticleEffectsManager {
 	public static void onCommonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			swapParticleTypes();
-			registerParticleColorsForTypes();
+			if (LoadedMods.isAnyOldPotionsModLoaded()) {
+				ParticleEffectsManager.redirectEnabled = true;
+				ParticleEffectsManager.redirectToVanillaEffectColors = true;
+				ParticleEffectsManager.registerParticleColorsForTypes();
+				ParticleEffectsManager.redirectToVanillaEffectColors = false;
+				ParticleEffectsManager.registerParticleColorsForTypes();
+				ParticleEffectsManager.redirectEnabled = false;
+			} else {
+				registerParticleColorsForTypes();
+			}
 		});
 	}
 	*///?}

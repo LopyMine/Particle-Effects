@@ -1,1 +1,2 @@
-- Bumped to 1.21.11
+- Added new particles for the Breath of the Nautilus effect
+- Added compatibility for the Old Potions mod
