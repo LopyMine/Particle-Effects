@@ -19,7 +19,15 @@ public class ParticleEffects  {
 		//? if >=1.21 {
 		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 		//?} else {
-		/*return ResourceLocation.tryBuild(MOD_ID, path);
+		/*return Identifier.tryBuild(MOD_ID, path);
+		 *///?}
+	}
+
+	public static Identifier parseId(String path) {
+		//? if >=1.21 {
+		return Identifier.parse(path);
+		//?} else {
+		/*return new Identifier(path);
 		 *///?}
 	}
 

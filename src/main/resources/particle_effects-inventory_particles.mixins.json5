@@ -1,0 +1,22 @@
+{
+    "required": true,
+    "package": "net.lopymine.pe.mixin.ip",
+	"plugin": "net.lopymine.pe.compat.ip.InventoryParticlesCompatPlugin",
+    "refmap": "${mod_id}.refmap.json",
+    "compatibilityLevel": "JAVA_${java}",
+    "mixins": [],
+    "client": [
+	    //? if <=1.21.9 {
+	    /*"ParticleEngineAccessor",
+	    *///?}
+	    "AbstractInventoryElementMixin",
+		"ParticlesConfigsManagerMixin",
+	    "ColorControllerMixin",
+	    "InventoryParticleMixin",
+	    "ParticleConfigMixin",
+	    "ParticleSpawnerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

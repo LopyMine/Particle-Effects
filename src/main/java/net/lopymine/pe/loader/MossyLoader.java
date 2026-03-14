@@ -29,10 +29,10 @@ public class MossyLoader {
 	public static boolean isModLoaded(String modid, boolean loadingPhase) {
 		if (loadingPhase) {
 			//? if >=1.21.10 {
-			/^return FMLLoader.getCurrent().getLoadingModList().getModFileById(modid) != null;
-			^///?} else {
-			return FMLLoader.getLoadingModList().getModFileById(modid) != null;
-			//?}
+			return FMLLoader.getCurrent().getLoadingModList().getModFileById(modid) != null;
+			//?} else {
+			/^return FMLLoader.getLoadingModList().getModFileById(modid) != null;
+			^///?}
 		} else {
 			return ModList.get().isLoaded(modid);
 		}

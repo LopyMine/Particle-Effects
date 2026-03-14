@@ -18,7 +18,17 @@ mossyDependencies {
 
 	additional {
 		//disable("oldpotions")
+
+		if (sc.current.project.contains("fabric")) {
+			override("modRuntimeOnly", "mossylib")
+		} else {
+			override("runtimeOnly", "mossylib")
+		}
 	}
+}
+
+repositories {
+	mavenLocal()
 }
 
 dependencies {

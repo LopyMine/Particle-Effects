@@ -1,2 +1,1 @@
-- Added new particles for the Breath of the Nautilus effect
-- Added compatibility for the Old Potions mod
+- Added compatibility for the Inventory Particles mod (only for >=v1.5.0)

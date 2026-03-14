@@ -74,11 +74,17 @@ public class ParticleEffectsManager {
 	*///?}
 
 	private static final Map<Integer, List<ParticleOptions>> COLOR_TO_PARTICLES_MAP = new HashMap<>();
+	private static final Map<Integer, List<String>> COLOR_TO_MOB_EFFECTS_MAP = new HashMap<>();
 	private static final HashMap<ParticleOptions, MobEffect> MINECRAFT_EFFECTS_WITH_TEXTURED_PARTICLE = getMinecraftEffectWidthTexturedParticles();
 
 	@Nullable
 	public static List<ParticleOptions> getParticleEffects(Integer i) {
 		return COLOR_TO_PARTICLES_MAP.get(i);
+	}
+
+	@Nullable
+	public static List<String> getParticleMobEffects(Integer i) {
+		return COLOR_TO_MOB_EFFECTS_MAP.get(i);
 	}
 
 	private static void registerParticleTypeForEffect(MobEffect statusEffect, Identifier effectId) {
@@ -171,8 +177,12 @@ public class ParticleEffectsManager {
 			//? =1.20.1 {
 			/*int color = ArgbUtils.getColorWithoutAlpha(StatusEffectUtils.getColor(effects));
 
-			List<ParticleOptions> particleEffects = effects.stream()
+			List<MobEffect> mobEffects = effects.stream()
 					.map(MobEffectInstance::getEffect)
+					.toList();
+
+			List<ParticleOptions> particleEffects = mobEffects
+					.stream()
 					.flatMap((effect) -> {
 						ParticleOptions particleEffect = ((PEStatusEffect) effect).particleEffects$getParticleEffect();
 						if (particleEffect == null) {
@@ -191,10 +201,12 @@ public class ParticleEffectsManager {
 
 			int color = ArgbUtils.getColorWithoutAlpha(optional.getAsInt());
 
-			List<ParticleOptions> particleEffects = effects.stream()
+			List<MobEffect> mobEffects = effects.stream()
 					.map(MobEffectInstance::getEffect)
 					.map(Holder::value)
-					.flatMap((effect) -> {
+					.toList();
+
+			List<ParticleOptions> particleEffects = mobEffects.stream().flatMap((effect) -> {
 						ParticleOptions particleEffect = ((PEStatusEffect) effect).particleEffects$getParticleEffect();
 						if (particleEffect == null) {
 							ParticleEffects.LOGGER.error("[DEV/Potion Registration] Looks like {} effect with color {} doesn't have textured particle, this shouldn't happen! Skipping it registration.", color, effect.getDisplayName().getString());
@@ -217,6 +229,7 @@ public class ParticleEffectsManager {
 				}
 			} else {
 				COLOR_TO_PARTICLES_MAP.put(color, particleEffects);
+				COLOR_TO_MOB_EFFECTS_MAP.putIfAbsent(color, getMobEffectIds(mobEffects));
 			}
 		}
 
@@ -249,6 +262,7 @@ public class ParticleEffectsManager {
 				}
 			} else {
 				COLOR_TO_PARTICLES_MAP.put(color, List.of(particleEffect));
+				COLOR_TO_MOB_EFFECTS_MAP.put(color, getMobEffectIds(List.of(statusEffect)));
 			}
 		}
 	}
@@ -437,5 +451,13 @@ public class ParticleEffectsManager {
 		Particle particle = supplier.get();
 		ParticleCaptures.setDebugData(null);
 		return particle;
+	}
+
+	private static List<String> getMobEffectIds(List<MobEffect> effects) {
+		return effects.stream()
+				.map(BuiltInRegistries.MOB_EFFECT::getKey)
+				.filter(Objects::nonNull)
+				.map(Identifier::getPath)
+				.toList();
 	}
 }

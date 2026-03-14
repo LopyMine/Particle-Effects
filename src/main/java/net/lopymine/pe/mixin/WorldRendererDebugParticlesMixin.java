@@ -51,10 +51,10 @@ public class WorldRendererDebugParticlesMixin {
 					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endLastBatch()V"
 			),
 			//? if <=1.21.1 {
-			method = "renderLevel"
-			//?} else {
-			/^method = "method_62214"
-			^///?}
+			/^method = "renderLevel"
+			^///?} else {
+			method = "method_62214"
+			//?}
 	)
 	private void renderDebugParticles(CallbackInfo ci, @Local PoseStack stack, @Local(argsOnly = true) Camera camera, @Local(argsOnly = true) DeltaTracker tracker) {
 		DebugParticleInfoRenderer.renderAll(stack, camera.getPosition(), camera.rotation(), tracker.getGameTimeDeltaPartialTick(false));
