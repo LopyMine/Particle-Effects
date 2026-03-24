@@ -1,1 +1,1 @@
-- Added compatibility for the Inventory Particles mod (only for >=v1.5.0)
+- Ported to 26.1

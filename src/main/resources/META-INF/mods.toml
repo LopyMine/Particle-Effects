@@ -1,5 +1,5 @@
 license = "${mod_license}"
-issueTrackerURL = "https://github.com/${github_author}/${mod_id}"
+issueTrackerURL = "https://github.com/${github_mod_author}/${mod_id}"
 modLoader="javafml"
 loaderVersion="[1,)"
 
