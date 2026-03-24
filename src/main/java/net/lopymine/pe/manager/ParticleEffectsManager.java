@@ -28,7 +28,11 @@ import org.jetbrains.annotations.Nullable;
 
 //? if fabric {
 
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+//? if >=26.1 {
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
+//?} else {
+/*import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+ *///?}
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 
 //?}
@@ -270,7 +274,11 @@ public class ParticleEffectsManager {
 	//? if fabric {
 	public static void registerParticleFactories() {
 		for (ParticleOptions type : REGISTERED_PARTICLE_TYPES) {
-			ParticleFactoryRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
+			//? if >=26.1 {
+			ParticleProviderRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
+			//?} else {
+			/*ParticleFactoryRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
+			 *///?}
 		}
 	}
 	//?}

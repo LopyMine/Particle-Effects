@@ -4,8 +4,7 @@ plugins {
 }
 
 mossyDependencies {
-	minecraft = stonecutter.current.version.toString()
-	mappings = "official"
+	minecraft = stonecutter.current.project.substring(stonecutter.current.project.indexOf("-") + 1)
 	lombok = prop("base.lombok_version")
 
 	fabricApi = prop("build.fabric_api")
@@ -19,22 +18,39 @@ mossyDependencies {
 	additional {
 		//disable("oldpotions")
 
-		if (sc.current.project.contains("fabric")) {
-			override("modRuntimeOnly", "mossylib")
+		if (stonecutter.current.version.startsWith("26.1")) {
+			disable("mossylib")
+			disable("inventory-particles")
 		} else {
-			override("runtimeOnly", "mossylib")
+			if (sc.current.project.contains("fabric")) {
+				override("modRuntimeOnly", "mossylib")
+			} else {
+				override("runtimeOnly", "mossylib")
+			}
 		}
+
+
 	}
 }
 
 repositories {
 	mavenLocal()
+	maven {
+		name "Mossy Projects"
+		url "https://maven.lopymine.net/releases"
+	}
 }
 
 dependencies {
 	def oldPotions = prop("dep.oldpotions")
 	if (oldPotions != "unknown") {
 		implementation group: 'com.electronwill.night-config', name: 'toml', version: '3.6.7'
+	}
+
+	def project = stonecutter.current.project
+	if (project.contains("26.1")) {
+		implementation("net.lopymine:mossylib:1.1.0-fabric-26.1-pre-2")
+		implementation("net.lopymine:inventory_particles:1.5.0-fabric-26.1-pre-2")
 	}
 }
 

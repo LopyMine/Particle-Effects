@@ -9,9 +9,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//? if >=1.21.9 {
-import net.minecraft.client.renderer.state.LevelRenderState;
-//?}
+//? if >=26.1 {
+import net.minecraft.client.renderer.state.level.LevelRenderState;
+//?} elif >=1.21.9 {
+/*import net.minecraft.client.renderer.state.LevelRenderState;
+ *///?}
 
 @Mixin(LevelRenderer.class)
 public class WorldRendererDebugParticlesMixin {
@@ -29,26 +31,40 @@ public class WorldRendererDebugParticlesMixin {
 	}
 	*///?}
 
-	//? if >=1.21.9 {
+	//? if >=26.1 {
 	@Inject(
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endLastBatch()V"
+					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endBatch()V",
+					ordinal = 0
 			),
-			//? if fabric {
-			method = "method_62214"
-			//?} elif neoforge {
-			/*method = "lambda$addMainPass$1"
-			*///?}
+
+			method = "lambda$addMainPass$0"
 	)
 	private void renderDebugParticles(CallbackInfo ci, @Local PoseStack stack, @Local(argsOnly = true) LevelRenderState state) {
 		DebugParticleInfoRenderer.renderAll(stack, state.cameraRenderState.pos, state.cameraRenderState.orientation, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false));
 	}
-	//?} elif >=1.21 {
+	//?} elif >=1.21.9 {
 	/*@Inject(
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endLastBatch()V"
+					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endLastBatch()V",
+					ordinal = 0
+			),
+			//? if fabric {
+			method = "method_62214"
+			//?} elif neoforge {
+			*//*method = "lambda$addMainPass$1"
+			*//*//?}
+	)
+	private void renderDebugParticles(CallbackInfo ci, @Local PoseStack stack, @Local(argsOnly = true) LevelRenderState state) {
+		DebugParticleInfoRenderer.renderAll(stack, state.cameraRenderState.pos, state.cameraRenderState.orientation, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false));
+	}
+	*///?} elif >=1.21 {
+	/*@Inject(
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endLastBatch()V", ordinal = 0
 			),
 			//? if <=1.21.1 {
 			/^method = "renderLevel"

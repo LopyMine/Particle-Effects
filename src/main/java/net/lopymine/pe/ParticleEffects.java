@@ -12,8 +12,12 @@ public class ParticleEffects  {
 
 	public static final String MOD_NAME = /*$ mod_name*/ "Particle Effects";
 	public static final String MOD_ID = /*$ mod_id*/ "particle_effects";
-	public static final String YACL_DEPEND_VERSION = /*$ yacl*/ "3.8.1+1.21.11-fabric";
+	public static final String YACL_DEPEND_VERSION = /*$ yacl*/ "3.9.0+26.1-fabric";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+
+	@Setter
+	@Getter
+	private static ParticleEffectsConfig config;
 
 	public static Identifier id(String path) {
 		//? if >=1.21 {
@@ -34,10 +38,6 @@ public class ParticleEffects  {
 	public static MutableComponent text(String path, Object... args) {
 		return Component.translatable(String.format("%s.%s", MOD_ID, path), args);
 	}
-
-	@Setter
-	@Getter
-	private static ParticleEffectsConfig config;
 
 	public static void onInitialize() {
 		LOGGER.info("{} Initialized", MOD_NAME);

@@ -10,12 +10,17 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.particle.*;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
+
+//? if >=26.1 {
+import net.minecraft.util.LightCoordsUtil;
+//?} else {
+/*import net.minecraft.client.renderer.LightTexture;
+ *///?}
 
 public class DebugParticleInfoRenderer {
 
@@ -56,9 +61,11 @@ public class DebugParticleInfoRenderer {
 
 		int yOffset = 0;
 		for (String line : text) {
-			//? if >=1.21.9 {
-			Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightTexture.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
-			//?} else {
+			//? if >=26.1 {
+			Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightCoordsUtil.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
+			//?} elif >=1.21.9 {
+			/*Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightTexture.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
+			 *///?} else {
 			/*float f = (float) (-textRenderer.width(line)) / 2.0F;
 			textRenderer.drawInBatch(line, f, (float) -yOffset, -1, false, matrices.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(), DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 			*///?}
