@@ -3,17 +3,20 @@
     "package": "net.lopymine.pe.mixin",
     "refmap": "${mod_id}.refmap.json",
     "compatibilityLevel": "JAVA_${java}",
-    "mixins": [
-    ],
+    "mixins": [],
     "client": [
 	    /*? =1.20.1*/
 	    //"LivingEntityMixin",
+
 	    /*? >=1.21.2*/
 	    "WorldEventHandlerMixin",
+
 	    /*? !1.20.1*/
 	    "SecondLivingEntityMixin",
+
 	    /*? >=1.21.9*/
 	    "ClientWorldMixin",
+
 	    /*? <=1.21.8*/
 	    //"WorldRendererMixin",
 	    "StatusEffectsMixin",

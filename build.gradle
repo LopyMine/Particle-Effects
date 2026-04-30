@@ -18,12 +18,8 @@ mossyDependencies {
 	additional {
 		//disable("oldpotions")
 
-		if (sc.current.project.contains("fabric") && !stonecutter.current.version.startsWith("26.1")) {
-			override("modRuntimeOnly", "mossylib")
-		} else {
-			override("runtimeOnly", "mossylib")
-		}
-
+		override("mossyRuntimeOnly", "mossylib")
+		//override("mossyCompileOnly", "inventory-particles")
 	}
 }
 

@@ -33,3 +33,10 @@ mandatory = false
 versionRange = "*"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "inventory_particles"
+mandatory = false
+versionRange = "[2.0.1,)"
+ordering = "NONE"
+side = "BOTH"
