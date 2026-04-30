@@ -12,7 +12,7 @@ public class ParticleEffects  {
 
 	public static final String MOD_NAME = /*$ mod_name*/ "Particle Effects";
 	public static final String MOD_ID = /*$ mod_id*/ "particle_effects";
-	public static final String YACL_DEPEND_VERSION = /*$ yacl*/ "3.9.0+26.1-fabric";
+	public static final String YACL_DEPEND_VERSION = /*$ yacl*/ "3.9.3+26.1-neoforge";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
 	@Setter

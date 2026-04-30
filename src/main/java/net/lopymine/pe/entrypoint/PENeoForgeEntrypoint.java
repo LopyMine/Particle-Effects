@@ -1,7 +1,7 @@
 package net.lopymine.pe.entrypoint;
 
 //? if neoforge {
-/*import net.lopymine.pe.ParticleEffects;
+import net.lopymine.pe.ParticleEffects;
 
 import net.lopymine.pe.manager.ParticleEffectsManager;
 import net.neoforged.bus.api.IEventBus;
@@ -20,4 +20,4 @@ public class PENeoForgeEntrypoint {
 
 }
 
-*///?}
+//?}

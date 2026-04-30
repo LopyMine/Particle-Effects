@@ -21,7 +21,15 @@ public class ParticlesConfigsManagerMixin {
 		}
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/lopymine/ip/config/particle/ParticleHolder;create(Ljava/util/function/Function;)Lnet/lopymine/ip/element/mod/spawner/ParticleSpawner;", remap = false), method = "registerConfig(Lnet/lopymine/ip/config/particle/ParticleConfig;Lnet/minecraft/resources/Identifier;)V", remap = false)
+	@Inject(
+			at = @At(
+				value = "INVOKE",
+				target = "Lnet/lopymine/ip/config/particle/ParticleHolder;createSpawner(Ljava/util/function/Function;)Lnet/lopymine/ip/element/mod/spawner/ParticleSpawner;",
+				remap = false
+			),
+			method = "registerConfig(Lnet/lopymine/ip/config/particle/ParticleConfig;Lnet/minecraft/resources/Identifier;)V",
+			remap = false
+	)
 	private void swapColorType(CallbackInfo ci, @Local(argsOnly = true) ParticleConfig config, @Local ParticleHolder holder) {
 		if (!(config instanceof IPotionParticleThing thing) || !thing.particleEffects$get()) {
 			return;

@@ -1,7 +1,7 @@
 package net.lopymine.pe.entrypoint;
 
 //? if neoforge {
-/*import net.lopymine.pe.ParticleEffects;
+import net.lopymine.pe.ParticleEffects;
 
 import net.lopymine.pe.client.ParticleEffectsClient;
 import net.lopymine.pe.modmenu.*;
@@ -20,5 +20,5 @@ public class PENeoForgeClientEntrypoint {
 
 }
 
-*///?}
+//?}
 

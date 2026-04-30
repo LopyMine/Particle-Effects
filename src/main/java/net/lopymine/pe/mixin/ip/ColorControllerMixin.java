@@ -50,7 +50,7 @@ public class ColorControllerMixin {
 		}
 
 		List<String> list = ParticleEffectsManager.getParticleMobEffects(color);
-		if (list == null) {
+		if (list == null || list.isEmpty()) {
 			textureProvider.setEnabled(false);
 			return;
 		}
