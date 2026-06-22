@@ -19,7 +19,7 @@ mossyDependencies {
 		//disable("oldpotions")
 
 		override("mossyRuntimeOnly", "mossylib")
-		//override("mossyCompileOnly", "inventory-particles")
+		override("mossyCompileOnly", "inventory-particles")
 	}
 }
 

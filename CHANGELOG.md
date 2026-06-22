@@ -1,2 +1,1 @@
-- Fixed compatibility with new version (v2.0.1) of Inventory Particles
-- Ported to 26.1 (NeoForge)
+- Ported to 26.2

@@ -2,7 +2,7 @@ package net.lopymine.pe.entrypoint;
 
 //? if fabric {
 
-/*import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.lopymine.pe.client.ParticleEffectsClient;
 import net.lopymine.pe.compat.LoadedMods;
@@ -32,4 +32,4 @@ public class PEFabricClientEntrypoint implements ClientModInitializer {
 
 }
 
-*///?}
+//?}

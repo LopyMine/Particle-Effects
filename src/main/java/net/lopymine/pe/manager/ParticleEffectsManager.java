@@ -28,23 +28,23 @@ import org.jetbrains.annotations.Nullable;
 
 //? if fabric {
 
-/*//? if >=26.1 {
-/^import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
-^///?} else {
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
- //?}
+//? if >=26.1 {
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
+//?} else {
+/*import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+ *///?}
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 
-*///?}
+//?}
 
 //? if neoforge {
 
-import net.neoforged.bus.api.SubscribeEvent;
+/*import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.registries.*;
 
-//?}
+*///?}
 
 //? if forge {
 /*import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -60,15 +60,15 @@ public class ParticleEffectsManager {
 	public static boolean redirectToVanillaEffectColors = true;
 
 	//? if fabric {
-	/*private static final List<ParticleOptions> REGISTERED_PARTICLE_TYPES = new ArrayList<>();
+	private static final List<ParticleOptions> REGISTERED_PARTICLE_TYPES = new ArrayList<>();
 	private static final Map<MobEffect, ParticleOptions> EFFECT_TO_PARTICLE = new HashMap<>();
-	*///?}
+	//?}
 
 	//? if neoforge {
-	public static final DeferredRegister<ParticleType<?>> PARTICLES_REGISTER = DeferredRegister.create(Registries.PARTICLE_TYPE, ParticleEffects.MOD_ID);
+	/*public static final DeferredRegister<ParticleType<?>> PARTICLES_REGISTER = DeferredRegister.create(Registries.PARTICLE_TYPE, ParticleEffects.MOD_ID);
 	private static final List<DeferredHolder<ParticleType<?>, SimpleParticleType>> REGISTERED_PARTICLE_TYPES = new ArrayList<>();
 	private static final Map<MobEffect, DeferredHolder<ParticleType<?>, SimpleParticleType>> EFFECT_TO_PARTICLE = new HashMap<>();
-	//?}
+	*///?}
 
 	//? if forge {
 	/*public static final DeferredRegister<ParticleType<?>> PARTICLES_REGISTER = DeferredRegister.create(Registries.PARTICLE_TYPE, ParticleEffects.MOD_ID);
@@ -95,7 +95,7 @@ public class ParticleEffectsManager {
 		Identifier modEffectId = getModEffectId(statusEffect, effectId);
 
 		//? if fabric {
-		/*// CREATE PARTICLE TYPE
+		// CREATE PARTICLE TYPE
 		ParticleOptions type = Registry.register(
 				BuiltInRegistries.PARTICLE_TYPE,
 				modEffectId,
@@ -105,14 +105,14 @@ public class ParticleEffectsManager {
 		// ADD TO REGISTERED PARTICLES TO REGISTER THEIR FACTORY AT CLIENT LAYER
 		REGISTERED_PARTICLE_TYPES.add(type);
 		EFFECT_TO_PARTICLE.put(statusEffect, type);
-		*///?}
+		//?}
 
 		//? if neoforge {
-		String registryName = modEffectId.getPath();
+		/*String registryName = modEffectId.getPath();
 		DeferredHolder<ParticleType<?>, SimpleParticleType> holder = PARTICLES_REGISTER.register(registryName, () -> new SimpleParticleType(false));
 		REGISTERED_PARTICLE_TYPES.add(holder);
 		EFFECT_TO_PARTICLE.put(statusEffect, holder);
-		//?}
+		*///?}
 
 		//? if forge {
 		/*String registryName = modEffectId.getPath();
@@ -146,16 +146,16 @@ public class ParticleEffectsManager {
 
 	public static void swapParticleTypes() {
 		//? if fabric {
-		/*for (Entry<MobEffect, ParticleOptions> entry : EFFECT_TO_PARTICLE.entrySet()) {
+		for (Entry<MobEffect, ParticleOptions> entry : EFFECT_TO_PARTICLE.entrySet()) {
 			StatusEffectUtils.swapParticle(entry.getKey(), entry.getValue());
 		}
-		*///?}
+		//?}
 
 		//? if neoforge {
-		for (Entry<MobEffect, DeferredHolder<ParticleType<?>, SimpleParticleType>> entry : EFFECT_TO_PARTICLE.entrySet()) {
+		/*for (Entry<MobEffect, DeferredHolder<ParticleType<?>, SimpleParticleType>> entry : EFFECT_TO_PARTICLE.entrySet()) {
 			StatusEffectUtils.swapParticle(entry.getKey(), entry.getValue().get());
 		}
-		//?}
+		*///?}
 
 		//? if forge {
 		/*for (Entry<MobEffect, RegistryObject<SimpleParticleType>> entry : EFFECT_TO_PARTICLE.entrySet()) {
@@ -272,19 +272,19 @@ public class ParticleEffectsManager {
 	}
 
 	//? if fabric {
-	/*public static void registerParticleFactories() {
+	public static void registerParticleFactories() {
 		for (ParticleOptions type : REGISTERED_PARTICLE_TYPES) {
 			//? if >=26.1 {
-			/^ParticleProviderRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
-			^///?} else {
-			ParticleFactoryRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
-			 //?}
+			ParticleProviderRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
+			//?} else {
+			/*ParticleFactoryRegistry.getInstance().register((SimpleParticleType) type, TexturedParticleFactory::new);
+			 *///?}
 		}
 	}
-	*///?}
+	//?}
 
 	//? if neoforge {
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
 		for (DeferredHolder<ParticleType<?>, SimpleParticleType> holder : REGISTERED_PARTICLE_TYPES) {
 			event.registerSpriteSet(holder.get(), TexturedParticleFactory::new);
@@ -307,7 +307,7 @@ public class ParticleEffectsManager {
 			}
 		});
 	}
-	//?}
+	*///?}
 
 	//? if forge {
 	/*@SubscribeEvent

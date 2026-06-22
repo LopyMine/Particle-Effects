@@ -2,7 +2,7 @@ package net.lopymine.pe.loader;
 
 //? if fabric {
 
-/*import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.FabricLoader;
 import java.nio.file.Path;
 
 @SuppressWarnings("unused")
@@ -16,9 +16,9 @@ public class MossyLoader {
 		return FabricLoader.getInstance().getConfigDir();
 	}
 }
-*///?} elif neoforge {
+//?} elif neoforge {
 
-import net.neoforged.fml.ModList;
+/*import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.*;
 import java.nio.file.Path;
@@ -31,8 +31,8 @@ public class MossyLoader {
 			//? if >=1.21.10 {
 			return FMLLoader.getCurrent().getLoadingModList().getModFileById(modid) != null;
 			//?} else {
-			/*return FMLLoader.getLoadingModList().getModFileById(modid) != null;
-			*///?}
+			/^return FMLLoader.getLoadingModList().getModFileById(modid) != null;
+			^///?}
 		} else {
 			return ModList.get().isLoaded(modid);
 		}
@@ -42,7 +42,7 @@ public class MossyLoader {
 		return FMLPaths.CONFIGDIR.get();
 	}
 }
-//?} elif forge {
+*///?} elif forge {
 
 /*import java.nio.file.Path;
 import net.minecraftforge.fml.ModList;

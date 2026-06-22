@@ -31,8 +31,13 @@ public class WorldRendererDebugParticlesMixin {
 	}
 	*///?}
 
-	//? if >=26.1 {
-	@Inject(
+	//? if >=26.2 {
+	@Inject(at = @At("HEAD"), method = "submitFeatures")
+	private void renderDebugParticles(CallbackInfo ci, @Local(argsOnly = true) LevelRenderState state, @Local(argsOnly = true) SubmitNodeCollector collector) {
+		DebugParticleInfoRenderer.renderAll(new PoseStack(), state.cameraRenderState.pos, state.cameraRenderState.orientation, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false), collector);
+	}
+	//?} elif >=26.1 {
+	/*@Inject(
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;endBatch()V",
@@ -44,7 +49,7 @@ public class WorldRendererDebugParticlesMixin {
 	private void renderDebugParticles(CallbackInfo ci, @Local PoseStack stack, @Local(argsOnly = true) LevelRenderState state) {
 		DebugParticleInfoRenderer.renderAll(stack, state.cameraRenderState.pos, state.cameraRenderState.orientation, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false));
 	}
-	//?} elif >=1.21.9 {
+	*///?} elif >=1.21.9 {
 	/*@Inject(
 			at = @At(
 					value = "INVOKE",

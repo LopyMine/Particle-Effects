@@ -42,7 +42,11 @@ public class NoConfigLibraryScreen {
 				ParticleEffectsClient.LOGGER.error("Can't open YACL Modrinth page:", e);
 			}
 		} else {
-			Minecraft.getInstance().setScreen(parent);
+			//? if >=26.2 {
+			Minecraft.getInstance().gui.setScreen(parent);
+			//?} else {
+			/*Minecraft.getInstance().setScreen(parent);
+			 *///?}
 		}
 	}
 

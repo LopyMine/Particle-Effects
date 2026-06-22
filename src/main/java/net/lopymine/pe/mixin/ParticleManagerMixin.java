@@ -13,7 +13,6 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;

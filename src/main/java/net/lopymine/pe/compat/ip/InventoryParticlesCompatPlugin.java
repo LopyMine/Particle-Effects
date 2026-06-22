@@ -16,22 +16,22 @@ public class InventoryParticlesCompatPlugin extends CompatPlugin {
 		}
 
 		//? if fabric {
-		/*String string = net.fabricmc.loader.api.FabricLoader.getInstance()
+		String string = net.fabricmc.loader.api.FabricLoader.getInstance()
 				.getModContainer(this.getCompatModId())
 				.orElseThrow()
 				.getMetadata()
 				.getVersion()
 				.getFriendlyString();
-		*///?} elif neoforge {
+		//?} elif neoforge {
 
-		String string =
+		/*String string =
 		//? if >=1.21.10 {
 		 net.neoforged.fml.loading.FMLLoader.getCurrent().getLoadingModList().getModFileById(this.getCompatModId()).versionString();
 		//?} else {
-		/*net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById(this.getCompatModId()).versionString();
-		*///?}
+		/^net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById(this.getCompatModId()).versionString();
+		^///?}
 
-		//?} elif forge {
+		*///?} elif forge {
 		/*String string = net.minecraftforge.fml.loading.LoadingModList.get().getModFileById(this.getCompatModId()).versionString();
 		 *///?}
 

@@ -16,22 +16,40 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
-//? if >=26.1 {
+//? if >=26.2 {
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.util.LightCoordsUtil;
-//?} else {
+//?} elif >=26.1 {
+/*import net.minecraft.util.LightCoordsUtil;
+ *///?} else {
 /*import net.minecraft.client.renderer.LightTexture;
  *///?}
 
 public class DebugParticleInfoRenderer {
 
-	public static void renderAll(PoseStack matrices, Vec3 camera, Quaternionf cameraRotation, float tickProgress) {
-		//? if >=1.21.9 {
+
+	public static void renderAll(
+			PoseStack matrices,
+			Vec3 camera,
+			Quaternionf cameraRotation,
+			float tickProgress
+			//? if >=26.2 {
+			, SubmitNodeCollector collector
+			//?}
+	) {
+		//? if >=26.2 {
 		for (ParticleGroup<?> value : ((ParticleEngineMixin) Minecraft.getInstance().particleEngine).getParticles().values()) {
+			for (Particle particle : value.particles) {
+				renderDebugInfo(matrices, camera, cameraRotation, tickProgress, particle, collector);
+			}
+		}
+		//?} elif >=1.21.9 {
+		/*for (ParticleGroup<?> value : ((ParticleEngineMixin) Minecraft.getInstance().particleEngine).getParticles().values()) {
 			for (Particle particle : value.getAll()) {
 				renderDebugInfo(matrices, camera, cameraRotation, tickProgress, particle);
 			}
 		}
-		//?} else {
+		*///?} else {
 		/*for (Queue<Particle> value : ((ParticleEngineMixin) Minecraft.getInstance().particleEngine).getParticles().values()) {
 			for (Particle particle : value) {
 				renderDebugInfo(matrices, camera, cameraRotation, tickProgress, particle);
@@ -40,7 +58,16 @@ public class DebugParticleInfoRenderer {
 		*///?}
 	}
 
-	public static void renderDebugInfo(PoseStack matrices, Vec3 camera, Quaternionf cameraRotation, float tickProgress, Particle particle) {
+	public static void renderDebugInfo(
+			PoseStack matrices,
+			Vec3 camera,
+			Quaternionf cameraRotation,
+			float tickProgress,
+			Particle particle
+			//? if >=26.2 {
+			, SubmitNodeCollector collector
+			//?}
+	) {
 		if (!ParticleEffects.getConfig().isDebugLogEnabled()) {
 			return;
 		}
@@ -61,9 +88,11 @@ public class DebugParticleInfoRenderer {
 
 		int yOffset = 0;
 		for (String line : text) {
-			//? if >=26.1 {
-			Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightCoordsUtil.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
-			//?} elif >=1.21.9 {
+			//? if >=26.2 {
+			collector.submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightCoordsUtil.FULL_BRIGHT, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
+			//?} elif >=26.1 {
+			/*Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightCoordsUtil.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
+			 *///?} elif >=1.21.9 {
 			/*Minecraft.getInstance().levelRenderer.featureRenderDispatcher.getSubmitNodeStorage().submitNameTag(matrices, Vec3.ZERO, -yOffset, Component.literal(line), false, LightTexture.FULL_BRIGHT, 10, Minecraft.getInstance().levelRenderer.levelRenderState.cameraRenderState);
 			 *///?} else {
 			/*float f = (float) (-textRenderer.width(line)) / 2.0F;
