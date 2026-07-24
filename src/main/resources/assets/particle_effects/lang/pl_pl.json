@@ -1,0 +1,15 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "Visual Fabric Mod, który dodaje unikalne tekstury cząsteczek dla każdego efektu w vanilla Minecraft!",
+	"${mod_id}.modmenu.title": "§lKonfiguracja ${mod_name}",
+	"${mod_id}.modmenu.no_config_library_screen.message": "Musisz zainstalować §6§lYet Another Config Lib [YACL]§f aby otworzyć ekran konfiguracji ${mod_name}\n\n§a§lOtworzyć stronę §6§lYACL §a§lna Modrinth?",
+
+	"${mod_id}.modmenu.category.general.name": "§lOgólne",
+
+	"${mod_id}.modmenu.option.mod_enabled.name": "Mod włączony",
+	"${mod_id}.modmenu.option.mod_enabled.description": "Jeśli włączone, każda cząsteczka każdego efektu zostanie zastąpiona unikalną teksturą; jeśli wyłączone, nie zostanie.",
+	"${mod_id}.modmenu.option.debug_log_enabled.name": "§6Log debugowania włączony",
+	"${mod_id}.modmenu.option.debug_log_enabled.description": "Jeśli włączone, dodatkowe informacje będą zapisywane w konsoli na potrzeby debugowania; jeśli wyłączone, nie będą.",
+
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.true": "Włączone",
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.false": "Wyłączone"
+}
