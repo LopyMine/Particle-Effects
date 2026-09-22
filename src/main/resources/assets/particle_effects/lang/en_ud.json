@@ -1,0 +1,15 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "¡ʇɟɐɹɔǝuᴉW ɐllᴉuɐʌ uᴉ ʇɔǝɟɟǝ ʎɹǝʌǝ ɹoɟ sǝlɔᴉʇɹɐd pǝɹnʇxǝʇ ǝnbᴉun sppɐ ʇɐɥʇ poW ɔᴉɹqɐℲ lɐnsᴉΛ",
+	"${mod_id}.modmenu.title": "§l${mod_name} uoᴉʇɐɹnƃᴉɟuoƆ",
+	"${mod_id}.modmenu.no_config_library_screen.message": "You need to install §6§lYet Another Config Lib [YACL]§f to open ${mod_name} Configuration Screen\n\n§a§lOpen §6§lYACL §a§lModrinth page?",
+
+	"${mod_id}.modmenu.category.general.name": "§llɐɹǝuǝפ",
+
+	"${mod_id}.modmenu.option.mod_enabled.name": "pǝlqɐuƎ poW",
+	"${mod_id}.modmenu.option.mod_enabled.description": "˙ʇ,uoʍ 'pǝlqɐsᴉp ɟᴉ ;ǝɹnʇxǝʇ ǝnbᴉun ɐ ɥʇᴉʍ pǝɔɐldǝɹ ǝq llᴉʍ ʇɔǝɟɟǝ ɥɔɐǝ ɟo ǝlɔᴉʇɹɐd ɥɔɐǝ 'pǝlqɐuǝ ɟI",
+	"${mod_id}.modmenu.option.debug_log_enabled.name": "§6pǝlqɐuƎ ƃo˥ ƃnqǝp",
+	"${mod_id}.modmenu.option.debug_log_enabled.description": "˙ʇ,uoʍ 'pǝlqɐsᴉp ɟᴉ ;ƃuᴉƃƃnqǝp ɹoɟ ǝlosuoɔ oʇ pǝƃƃol ǝq llᴉʍ oɟuᴉ lɐuoᴉʇᴉppɐ 'pǝlqɐuǝ ɟI",
+
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.true": "pǝlqɐuƎ",
+	"${mod_id}.modmenu.formatter.enabled_or_disabled.false": "pǝlqɐsᴉp"
+}
