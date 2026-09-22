@@ -1,5 +1,7 @@
 package net.lopymine.pe.mixin.ip;
 
+//? if inventory-particles {
+
 import net.lopymine.ip.config.particle.ParticleConfig;
 import net.lopymine.pe.compat.ip.IPotionParticleThing;
 import org.spongepowered.asm.mixin.*;
@@ -20,3 +22,4 @@ public class ParticleConfigMixin implements IPotionParticleThing {
 		this.particleEffects$bl = bl;
 	}
 }
+//?}

@@ -1,5 +1,7 @@
 package net.lopymine.pe.mixin.ip;
 
+//? if inventory-particles {
+
 import com.llamalad7.mixinextras.sugar.Local;
 import net.lopymine.ip.InventoryParticles;
 import net.lopymine.ip.config.particle.*;
@@ -23,9 +25,9 @@ public class ParticlesConfigsManagerMixin {
 
 	@Inject(
 			at = @At(
-				value = "INVOKE",
-				target = "Lnet/lopymine/ip/config/particle/ParticleHolder;createSpawner(Ljava/util/function/Function;)Lnet/lopymine/ip/element/mod/spawner/ParticleSpawner;",
-				remap = false
+					value = "INVOKE",
+					target = "Lnet/lopymine/ip/config/particle/ParticleHolder;createSpawner(Ljava/util/function/Function;)Lnet/lopymine/ip/element/mod/spawner/ParticleSpawner;",
+					remap = false
 			),
 			method = "registerConfig(Lnet/lopymine/ip/config/particle/ParticleConfig;Lnet/minecraft/resources/Identifier;)V",
 			remap = false
@@ -38,3 +40,4 @@ public class ParticlesConfigsManagerMixin {
 	}
 
 }
+//?}

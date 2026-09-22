@@ -1,5 +1,7 @@
 package net.lopymine.pe.mixin.ip;
 
+//? if inventory-particles {
+
 import net.lopymine.ip.element.controller.color.ColorController;
 import net.lopymine.ip.element.mod.InventoryParticle;
 import net.lopymine.ip.element.mod.spawner.ParticleSpawner;
@@ -21,3 +23,4 @@ public class ParticleSpawnerMixin {
 	}
 
 }
+//?}

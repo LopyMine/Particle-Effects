@@ -1,5 +1,7 @@
 package net.lopymine.pe.mixin.ip;
 
+//? if inventory-particles {
+
 import com.llamalad7.mixinextras.injector.wrapoperation.*;
 import java.util.List;
 import net.lopymine.ip.element.base.*;
@@ -64,9 +66,10 @@ public class ColorControllerMixin {
 		currentTexture.initialize();
 		//?} else {
 		/*currentTexture.setAtlasSprite(((ParticleEngineAccessor) Minecraft.getInstance().particleEngine).getTextureAtlas().getSprite(id));
-		*///?}
+		 *///?}
 
 		textureProvider.setCurrentTexture(currentTexture);
 	}
 
 }
+//?}

@@ -1,5 +1,8 @@
 package net.lopymine.pe.compat.ip;
 
+//? if inventory-particles {
+
+
 import lombok.*;
 import net.lopymine.ip.element.texture.ITexture;
 import net.lopymine.ip.element.texture.provider.*;
@@ -44,3 +47,5 @@ public class DynamicPotionTextureProvider extends RandomStaticTextureProvider {
 		return super.isShouldDead();
 	}
 }
+
+//?}

@@ -1,5 +1,7 @@
 package net.lopymine.pe.mixin.ip;
 
+//? if inventory-particles {
+
 import net.lopymine.ip.config.particle.ParticleConfig;
 import net.lopymine.ip.element.mod.InventoryParticle;
 import net.lopymine.ip.element.mod.spawner.context.ParticleSpawnContext;
@@ -34,3 +36,4 @@ public class InventoryParticleMixin implements IPotionParticleThing {
 	}
 
 }
+//?}

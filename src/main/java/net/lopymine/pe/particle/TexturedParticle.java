@@ -22,12 +22,10 @@ public class TexturedParticle extends SpellParticle {
 
 	}
 
-	//? if <=1.21.8 {
-	/*@Override
+	@Override
 	public void setSpriteFromAge(SpriteSet spriteSet) {
 
 	}
-	*///?}
 
 	@Override
 	public void setAlpha(float alpha) {

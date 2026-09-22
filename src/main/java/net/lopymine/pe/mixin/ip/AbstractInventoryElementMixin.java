@@ -1,5 +1,7 @@
 package net.lopymine.pe.mixin.ip;
 
+//? if inventory-particles {
+
 import net.lopymine.ip.element.inventory.AbstractInventoryElement;
 import net.lopymine.pe.compat.ip.IPotionParticleThing;
 import net.lopymine.pe.utils.ArgbUtils;
@@ -15,7 +17,8 @@ public class AbstractInventoryElementMixin {
 		if (!(this instanceof IPotionParticleThing thing) || !thing.particleEffects$get()) {
 			return;
 		}
-		cir.setReturnValue(ArgbUtils.getArgb(ArgbUtils.getAlpha(cir.getReturnValue()), 255, 255,255));
+		cir.setReturnValue(ArgbUtils.getArgb(ArgbUtils.getAlpha(cir.getReturnValue()), 255, 255, 255));
 	}
 
 }
+//?}

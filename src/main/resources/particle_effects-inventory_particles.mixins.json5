@@ -6,15 +6,17 @@
     "compatibilityLevel": "JAVA_${java}",
     "mixins": [],
     "client": [
+	    //? if inventory-particles {
 	    //? if <=1.21.9 {
 	    /*"ParticleEngineAccessor",
 	    *///?}
 	    "AbstractInventoryElementMixin",
-		"ParticlesConfigsManagerMixin",
+	    "ParticlesConfigsManagerMixin",
 	    "ColorControllerMixin",
 	    "InventoryParticleMixin",
 	    "ParticleConfigMixin",
 	    "ParticleSpawnerMixin"
+	    //?}
     ],
     "injectors": {
         "defaultRequire": 1

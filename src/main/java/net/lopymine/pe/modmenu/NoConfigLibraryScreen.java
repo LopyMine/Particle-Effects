@@ -12,10 +12,14 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.util.*;
 import org.jetbrains.annotations.NotNull;
 
+//? if >=26.3 {
+import com.mojang.blaze3d.Blaze3D;
+//?}
+
 public class NoConfigLibraryScreen {
 
 	private static final Set<String> ALLOWED_PROTOCOLS = Sets.newHashSet("http", "https");
-	private static final String YACL_MODRINTH_LINK = "https://modrinth.com/mod/yacl/versions?l=fabric&g=";
+	private static final String YACL_MODRINTH_LINK = "https://modrinth.com/mod/yacl/versions?l=%s&g=".formatted(/*? if fabric {*/ "fabric" /*?} elif neoforge {*//* "neoforge" *//*?} else {*//* "forge" *//*?}*/);
 
 	private NoConfigLibraryScreen() {
 		throw new IllegalStateException("Screen class, use createScreen(...) method!");
@@ -37,7 +41,11 @@ public class NoConfigLibraryScreen {
 				if (!NoConfigLibraryScreen.ALLOWED_PROTOCOLS.contains(string.toLowerCase(Locale.ROOT))) {
 					throw new URISyntaxException(url, "Unsupported protocol: " + string.toLowerCase(Locale.ROOT));
 				}
-				Util.getPlatform().openUri(link);
+				//? if >=26.3 {
+				Blaze3D.openUri(link);
+				//?} else {
+				/*Util.getPlatform().openUri(link);
+				 *///?}
 			} catch (URISyntaxException e) {
 				ParticleEffectsClient.LOGGER.error("Can't open YACL Modrinth page:", e);
 			}

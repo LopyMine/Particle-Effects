@@ -33,16 +33,15 @@ public class WorldEventHandlerMixin {
 	private Level level;
 	*///?}
 
-	// SPLASH POTION
-	@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;atBottomCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
-	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects) {
+
+	//? if >=26.3 {
+	@Inject(method = "potionSplashParticles", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;atBottomCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
+	private void modifyParticleEffect(CallbackInfo ci, @Local(argsOnly = true) int data, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects) {
 		ParticleEffectsManager.processSplashPotionStageOne(localParticleEffects, data);
 	}
 
-	// SPLASH POTION
-	//? if >=1.21.9 {
-	@WrapOperation(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 4))
-	private void swapParticles(ClientLevel instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
+	@WrapOperation(method = "potionSplashParticles", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 1))
+	private void swapParticles(ClientLevel instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects, @Local(argsOnly = true) int color) {
 		@SuppressWarnings("unused")
 		Particle particle = ParticleEffectsManager.processSplashPotionStageTwo(
 				this.level,
@@ -55,13 +54,28 @@ public class WorldEventHandlerMixin {
 				color
 		);
 	}
-	//?} else {
-	/*@WrapOperation(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;addParticleInternal(Lnet/minecraft/core/particles/ParticleOptions;ZDDDDDD)Lnet/minecraft/client/particle/Particle;", ordinal = 0))
-	private Particle swapParticles(LevelRenderer instance, ParticleOptions parameters, boolean alwaysSpawn, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Particle> original, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
-		return ParticleEffectsManager.processSplashPotionStageTwo(
+	//?}
+
+	// SPLASH POTION
+	//? if <=26.2 {
+	/*@Inject(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;atBottomCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
+	private void modifyParticleEffect(int eventId, BlockPos pos, int data, CallbackInfo ci, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects) {
+		ParticleEffectsManager.processSplashPotionStageOne(localParticleEffects, data);
+	}
+	*///?}
+
+	// SPLASH POTION
+	//? if >=1.21.9 && <=26.2 {
+	/*@WrapOperation(method = "levelEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 4))
+	private void swapParticles(ClientLevel instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Operation<Void> original, @Share("tp_effects") LocalRef<List<ParticleOptions>> localParticleEffects, @Local(argsOnly = true, ordinal = 1) int color) {
+		@SuppressWarnings("unused")
+		Particle particle = ParticleEffectsManager.processSplashPotionStageTwo(
 				this.level,
 				parameters,
-				(particleEffect) -> original.call(instance, particleEffect, alwaysSpawn, x, y, z, velocityX, velocityY, velocityZ),
+				(particleEffect) -> {
+					original.call(instance, particleEffect, x, y, z, velocityX, velocityY, velocityZ);
+					return null;
+				},
 				localParticleEffects,
 				color
 		);
