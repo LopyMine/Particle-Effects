@@ -1,0 +1,19 @@
+{
+    "required": true,
+    "package": "net.lopymine.pe.mixin.itp",
+	"plugin": "net.lopymine.pe.compat.itp.ItemParticlesCompatPlugin",
+    "refmap": "${mod_id}.refmap.json",
+    "compatibilityLevel": "JAVA_${java}",
+    "mixins": [],
+    "client": [
+	    //? if item-particles {
+	    "ColorControllerMixin",
+	    "ItemParticleMixin",
+	    "ParticleConfigMixin",
+	    "ParticlesConfigsManagerMixin"
+	    //?}
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

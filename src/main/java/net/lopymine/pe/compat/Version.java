@@ -1,4 +1,4 @@
-package net.lopymine.pe.compat.ip;
+package net.lopymine.pe.compat;
 
 import org.jetbrains.annotations.NotNull;
 

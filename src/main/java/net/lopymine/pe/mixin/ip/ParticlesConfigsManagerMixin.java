@@ -7,7 +7,7 @@ import net.lopymine.ip.InventoryParticles;
 import net.lopymine.ip.config.particle.*;
 import net.lopymine.ip.element.color.NbtListColorProvider;
 import net.lopymine.ip.resourcepack.manager.ParticlesConfigsManager;
-import net.lopymine.pe.compat.ip.IPotionParticleThing;
+import net.lopymine.pe.compat.*;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
@@ -18,7 +18,7 @@ public class ParticlesConfigsManagerMixin {
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/lopymine/ip/config/particle/ParticleConfig;getHolders()Ljava/util/HashSet;", remap = false), method = "registerConfig(Lnet/lopymine/ip/config/particle/ParticleConfig;Lnet/minecraft/resources/Identifier;)V", remap = false)
 	private void markPotionConfig(CallbackInfo ci, @Local(argsOnly = true) ParticleConfig config, @Local(argsOnly = true) Identifier id) {
-		if (id.getNamespace().equals(InventoryParticles.MOD_ID) && id.getPath().startsWith("iparticles/vanilla/potion/potion")) {
+		if (PotionParticleConfigs.isPotionConfig(id, InventoryParticles.MOD_ID)) {
 			((IPotionParticleThing) config).particleEffects$set(true);
 		}
 	}

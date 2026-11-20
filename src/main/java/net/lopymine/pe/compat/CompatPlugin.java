@@ -26,6 +26,40 @@ public abstract class CompatPlugin implements IMixinConfigPlugin {
 		return MossyLoader.isModLoaded(this.getCompatModId(), true);
 	}
 
+	protected boolean isCompatModVersionAtLeast(String minVersion) {
+		Version version = Version.of(substringBefore(substringBefore(this.getCompatModVersion(), "+"), "-"));
+		return version.isGreaterOrEqualThan(Version.of(minVersion));
+	}
+
+	private String getCompatModVersion() {
+		//? if fabric {
+		return net.fabricmc.loader.api.FabricLoader.getInstance()
+				.getModContainer(this.getCompatModId())
+				.orElseThrow()
+				.getMetadata()
+				.getVersion()
+				.getFriendlyString();
+		//?} elif neoforge {
+		/*String version =
+		//? if >=1.21.10 {
+		net.neoforged.fml.loading.FMLLoader.getCurrent().getLoadingModList().getModFileById(this.getCompatModId()).versionString();
+		//?} else {
+		/^net.neoforged.fml.loading.FMLLoader.getLoadingModList().getModFileById(this.getCompatModId()).versionString();
+		^///?}
+		return version;
+		*///?} elif forge {
+		/*return net.minecraftforge.fml.loading.LoadingModList.get().getModFileById(this.getCompatModId()).versionString();
+		*///?}
+	}
+
+	private static String substringBefore(String value, String since) {
+		int i = value.indexOf(since);
+		if (i == -1) {
+			return value;
+		}
+		return value.substring(0, i);
+	}
+
 	@Override
 	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
 		// NO-OP

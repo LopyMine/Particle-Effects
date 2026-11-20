@@ -5,7 +5,7 @@ package net.lopymine.pe.mixin.ip;
 import net.lopymine.ip.config.particle.ParticleConfig;
 import net.lopymine.ip.element.mod.InventoryParticle;
 import net.lopymine.ip.element.mod.spawner.context.ParticleSpawnContext;
-import net.lopymine.pe.compat.ip.IPotionParticleThing;
+import net.lopymine.pe.compat.IPotionParticleThing;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;

@@ -32,7 +32,8 @@
         "${fabric_api_id}": "*"
     },
 	"breaks": {
-		"inventory_particles": "<2.0.1"
+		"inventory_particles": "<4.0.0",
+		"item_particles": "<2.0.1"
 	},
 	"accessWidener": "${fabric_trick_accesswidener_id}",
 	"mixins": [

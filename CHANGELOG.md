@@ -1,2 +1,3 @@
-- Ported to 26.3
-- Minor rendering fixes
+- Added compatibility with Item Particles
+- Updated compat with Inventory Particles since it's new resources layout
+- Fixed black-purple potion effect particles with Item Particles

@@ -3,7 +3,7 @@ package net.lopymine.pe.mixin.ip;
 //? if inventory-particles {
 
 import net.lopymine.ip.config.particle.ParticleConfig;
-import net.lopymine.pe.compat.ip.IPotionParticleThing;
+import net.lopymine.pe.compat.IPotionParticleThing;
 import org.spongepowered.asm.mixin.*;
 
 @Mixin(ParticleConfig.class)
